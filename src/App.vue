@@ -1,8 +1,22 @@
 <template>
   <div id="app">
-    <header>
-      <span><a href="#" rel="noopener" class="navLogo">Tuck Shop Manager</a></span>
-    </header>
+    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu-item index="1"><router-link to="/">Tuck shop Manager</router-link></el-menu-item>  
+      <el-submenu index="2">
+        <template slot="title">Students</template>
+        <el-menu-item index="2-1"><router-link to="/students">Dashboard</router-link></el-menu-item>
+        <el-menu-item index="2-2"><router-link to="/students/sell">Sell</router-link></el-menu-item>
+      </el-submenu>
+      <el-submenu index="3">
+        <template slot="title">Admin</template>
+        <el-menu-item index="3-1"><router-link to="/admin">Dahsboard</router-link></el-menu-item>
+        <el-menu-item index="3-2"><router-link to="/admin/sell">Sell</router-link></el-menu-item>
+        <el-menu-item index="3-3"><router-link to="/admin/stocks">Stocks</router-link></el-menu-item>
+        <el-menu-item index="3-4"><router-link to="/admin/users">Users</router-link></el-menu-item>
+      </el-submenu>
+      <el-menu-item index="4"><router-link to="/login">Login</router-link></el-menu-item>
+      <el-menu-item index="5"><router-link to="/stocks">Stocks</router-link></el-menu-item>
+    </el-menu>
     <main>
       <router-view></router-view>
     </main>

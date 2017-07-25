@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "username": "spitcher",
+      "password": "test"
+    },
+    {
+      "username": "gpecchio",
+      "password": "test"
+    }
+  ],
+  "stocks": [
+    {
+      "name": "Pringles",
+      "price": 2.30,
+      "quantity": 5
+    },
+    {
+      "name": "Doritos",
+      "price": 1.20,
+      "quantity": 7
+    },
+    {
+      "name": "Haribo",
+      "price": 1.00,
+      "quantity": 10
+    },
+    {
+      "name": "Drench",
+      "price": 2.00,
+      "quantity": 4
+    },
+    {
+      "name": "Pepsi",
+      "price": 0.60,
+      "quantity": 14
+    }
+  ]
+}

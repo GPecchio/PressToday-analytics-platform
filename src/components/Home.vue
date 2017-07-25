@@ -2,8 +2,8 @@
   <div class="home">
     <h1>{{ title }}</h1>
     <ul>
-      <li><h2><a href="#students" rel="noopener">Student</a></h2></li>
-      <li><h2><a href="#admin" rel="noopener">Admin</a></h2></li>
+      <li><h2><router-link to="/students">Students</router-link></h2></li>
+      <li><h2><router-link to="/admin">Admin</router-link></h2></li>
     </ul>
   </div>
 </template>

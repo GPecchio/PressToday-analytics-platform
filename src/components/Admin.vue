@@ -1,7 +1,13 @@
 <template>
   <div class="admin">
     <h1>{{ title }}</h1>
-    <h3><a href="/" rel="noopener">{{ back }}</a></h3>
+    <h3><router-link to="/">{{ back }}</router-link></h3>
+    <ul>
+      <li><router-link to="/login">Login</router-link></li>
+      <li><router-link to="/admin/sell">Sell</router-link></li>
+      <li><router-link to="/admin/stocks">Stocks</router-link></li>
+      <li><router-link to="/admin/users">Users</router-link></li>
+    </ul>
   </div>
 </template>
 

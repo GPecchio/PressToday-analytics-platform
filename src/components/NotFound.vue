@@ -1,7 +1,7 @@
 <template>
   <div class="NotFound">
     <h1>{{ title }}</h1>
-    <h3><a href="/" rel="noopener">{{ back }}</a></h3>
+    <h3><router-link to="/">{{ back }}</router-link></h3>
   </div>
 </template>
 

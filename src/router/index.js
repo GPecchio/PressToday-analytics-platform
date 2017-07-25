@@ -30,7 +30,8 @@ export default new Router({
       name: 'Students',
       component: Students,
       children: [
-        {path: '', component: Sell}
+        {path: '', component: Students},
+        {path: 'sell', component: Sell}
       ]
     },
     {
@@ -48,6 +49,16 @@ export default new Router({
       path: '/404',
       name: 'NotFoud',
       component: NotFound
+    },
+    {
+      path: '/stocks',
+      name: 'Stocks',
+      component: Stocks
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      component: Users
     },
     // catch all redirect
     {
