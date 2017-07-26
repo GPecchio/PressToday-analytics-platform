@@ -5,10 +5,16 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import DataTables from 'vue-data-tables'
+import lang from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale'
 
-Vue.config.productionTip = false
+locale.use(lang)
 
 Vue.use(ElementUI)
+Vue.use(DataTables)
+
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({

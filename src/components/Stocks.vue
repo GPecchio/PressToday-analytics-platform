@@ -1,13 +1,13 @@
 <template>
   <div class="stocks">
     <h1>{{ title }}</h1>
-    <div id="example-1">
+    <div id="main-stocks">
       <div class="table" v-if="stocks">
-        <el-table :data="stocks" border style="width: 541px">
-          <el-table-column prop="name" label="Name" width="180"></el-table-column>
-          <el-table-column prop="price" label="Price" width="180"></el-table-column>
-          <el-table-column prop="quantity" label="Quantity" width="180"></el-table-column>
-        </el-table>
+        <data-tables :data="stocks" :search-def="searchDef" :table-props="tableProps" border style="width: 541px">
+          <el-table-column prop="name" label="Name" width="180" sortable="custom"></el-table-column>
+          <el-table-column prop="price" label="Price" width="180" sortable="custom"></el-table-column>
+          <el-table-column prop="quantity" label="Quantity" width="180" sortable="custom"></el-table-column>
+        </data-tables>
       </div>
       <div v-else>
         <p>{{ errorMsg }}</p>
@@ -30,7 +30,19 @@ export default {
     return {
       title: 'stocks available',
       stocks: [],
-      errorMsg: ''
+      errorMsg: '',
+      searchDef: {
+        inputProps: {
+          placeholder: 'search'
+        },
+        props: 'name'
+      },
+      tableProps: {
+        defaultSort: {
+          prop: 'name',
+          order: 'ascending'
+        }
+      }
     }
   },
   beforeMount () {
