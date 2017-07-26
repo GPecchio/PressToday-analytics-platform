@@ -1,11 +1,11 @@
 <template>
   <div class="students">
     <h1>{{ title }}</h1>
-    <h3><router-link to="/">{{ back }}</router-link></h3>
     <ul>
-      <li><router-link to="/login">Login</router-link></li>
-      <li><router-link to="/students/sell">Sell</router-link></li>
+      <li><el-button><router-link to="/login">Login</router-link></el-button></li>
+      <li><el-button><router-link to="/students/sell">Sell</router-link></el-button></li>
     </ul>
+    <h3><router-link to="/">{{ back }}</router-link></h3>
   </div>
 </template>
 
