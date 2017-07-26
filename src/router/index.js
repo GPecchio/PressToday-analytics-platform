@@ -26,27 +26,32 @@ export default new Router({
     {
       path: '/students',
       name: 'Students',
-      component: Students,
-      children: [
-        {path: '/', component: Students},
-        {path: '/sell', component: Sell}
-      ]
+      component: Students
+    },
+    {
+      path: '/students/sell',
+      name: 'Sell',
+      component: Sell
     },
     {
       path: '/admin',
       name: 'Admin',
-      component: Admin,
-      children: [
-        {path: '/', component: Admin},
-        {path: '/sell', name: 'sell', component: Sell},
-        {path: '/stocks', name: 'stocks', component: Stocks},
-        {path: '/users', name: 'users', component: Users}
-      ]
+      component: Admin
+    },
+    {
+      path: '/admin/sell',
+      name: 'Sell',
+      component: Sell
     },
     {
       path: '/admin/stocks',
       name: 'Stocks',
       component: Stocks
+    },
+    {
+      path: '/admin/users',
+      name: 'Users',
+      component: Users
     },
     {
       path: '/404',

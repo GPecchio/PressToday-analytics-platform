@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       title: 'admin dashboard',
-      back: 'back to homepage'
+      back: 'Back to homepage'
     }
   }
 }

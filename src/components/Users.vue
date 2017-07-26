@@ -1,8 +1,8 @@
 <template>
-  <div class="stocks">
+  <div class="users">
     <h1>{{ title }}</h1>
     <h3><router-link to="/admin">Back to dashboard</router-link></h3>
-    <div id="example-1">
+    <div id="main-users">
       <button v-on:click="getUsers()">Get users</button>
       <div v-if="users">
         <el-table :data="users" border>
@@ -29,7 +29,7 @@ export default {
   name: 'home',
   data () {
     return {
-      title: 'stocks available',
+      title: 'users registered',
       users: [],
       errorMsg: ''
     }

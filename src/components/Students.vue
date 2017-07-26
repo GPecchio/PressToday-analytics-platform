@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       title: 'student dashboard',
-      back: 'back to hompage'
+      back: 'Back to hompage'
     }
   }
 }
