@@ -11,8 +11,6 @@ import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
 
-export var router = new Router()
-
 export default new Router({
   routes: [
     {
@@ -30,8 +28,8 @@ export default new Router({
       name: 'Students',
       component: Students,
       children: [
-        {path: '', component: Students},
-        {path: 'sell', component: Sell}
+        {path: '/', component: Students},
+        {path: '/sell', component: Sell}
       ]
     },
     {
@@ -39,11 +37,16 @@ export default new Router({
       name: 'Admin',
       component: Admin,
       children: [
-        {path: '', component: Admin},
-        {path: 'sell', name: 'sell', component: Sell},
-        {path: 'stocks', name: 'stocks', component: Stocks},
-        {path: 'users', name: 'users', component: Users}
+        {path: '/', component: Admin},
+        {path: '/sell', name: 'sell', component: Sell},
+        {path: '/stocks', name: 'stocks', component: Stocks},
+        {path: '/users', name: 'users', component: Users}
       ]
+    },
+    {
+      path: '/admin/stocks',
+      name: 'Stocks',
+      component: Stocks
     },
     {
       path: '/404',
