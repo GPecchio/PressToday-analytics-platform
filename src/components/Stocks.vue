@@ -3,10 +3,10 @@
     <h1>{{ title }}</h1>
     <div id="main-stocks">
       <div class="table" v-if="stocks">
-        <data-tables :data="stocks" :search-def="searchDef" :table-props="tableProps" border style="width: 541px">
-          <el-table-column prop="name" label="Name" width="180" sortable="custom"></el-table-column>
-          <el-table-column prop="price" label="Price" width="180" sortable="custom"></el-table-column>
-          <el-table-column prop="quantity" label="Quantity" width="180" sortable="custom"></el-table-column>
+        <data-tables :data="stocks" :actions-def="actionsDef" :search-def="searchDef" :table-props="tableProps" :action-col-def="actionColDef" border style="width: 75%">
+          <el-table-column prop="name" label="Name" sortable="custom"></el-table-column>
+          <el-table-column prop="price" label="Price" sortable="custom"></el-table-column>
+          <el-table-column prop="quantity" label="Quantity" sortable="custom"></el-table-column>
         </data-tables>
       </div>
       <div v-else>
@@ -30,7 +30,15 @@ export default {
     return {
       title: 'stocks available',
       stocks: [],
-      errorMsg: '',
+      errorMsg: 'there was a problem while loading the page, please refresh',
+      actionsDef: {
+        def: [{
+          name: 'new',
+          handler: () => {
+            this.$message('new clicked')
+          }
+        }]
+      },
       searchDef: {
         inputProps: {
           placeholder: 'search'
@@ -42,6 +50,26 @@ export default {
           prop: 'name',
           order: 'ascending'
         }
+      },
+      actionColDef: {
+        label: 'Actions',
+        def: [{
+          icon: 'edit',
+          type: 'text',
+          handler: row => {
+            this.$message('RUA in row clicked')
+            console.log('RUA in row clicked', row)
+          },
+          name: 'Edit'
+        }, {
+          icon: 'delete',
+          type: 'text',
+          handler: row => {
+            this.$message('RUA in row clicked')
+            console.log('RUA in row clicked', row)
+          },
+          name: 'Delete'
+        }]
       }
     }
   },
@@ -56,7 +84,7 @@ export default {
 
 <style scoped>
 .table{
-  padding-left: 27%;
+  padding-left: 20%;
 }
 a:enabled{
   text-decoration: none;

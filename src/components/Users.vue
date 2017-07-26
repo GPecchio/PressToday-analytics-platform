@@ -1,20 +1,18 @@
 <template>
   <div class="users">
     <h1>{{ title }}</h1>
-    <h3><router-link to="/admin">Back to dashboard</router-link></h3>
     <div id="main-users">
-      <button v-on:click="getUsers()">Get users</button>
-      <div v-if="users">
-        <el-table :data="users" border>
-          <el-table-column prop="username" label="Username" width="180"></el-table-column>
-          <el-table-column prop="password" label="Password" width="180"></el-table-column>
-        </el-table>
+      <div class="table" v-if="users">
+        <data-tables :data="users" :actions-def="actionsDef" :search-def="searchDef" :table-props="tableProps" :action-col-def="actionColDef" border style="width: 75%">
+          <el-table-column prop="username" label="Username" sortable="custom" ></el-table-column>
+          <el-table-column prop="password" label="Password" sortable="custom"></el-table-column>
+        </data-tables>
       </div>
       <div v-else>
         <p>{{ errorMsg }}</p>
       </div>
     </div>
-    
+    <h3><router-link to="/admin">Back to dashboard</router-link></h3>
   </div>
 </template>
 
@@ -31,21 +29,75 @@ export default {
     return {
       title: 'users registered',
       users: [],
-      errorMsg: ''
+      errorMsg: 'there was a problem while loading the page, please refresh',
+      actionsDef: {
+        def: [{
+          name: 'new',
+          handler: () => {
+            this.$message('new clicked')
+          }
+        }]
+      },
+      searchDef: {
+        inputProps: {
+          placeholder: 'search'
+        },
+        props: 'username'
+      },
+      tableProps: {
+        defaultSort: {
+          prop: 'username',
+          order: 'ascending'
+        }
+      },
+      actionColDef: {
+        label: 'Actions',
+        def: [{
+          icon: 'edit',
+          type: 'text',
+          handler: row => {
+            this.$message('RUA in row clicked')
+            console.log('RUA in row clicked', row)
+          },
+          name: 'Edit'
+        }, {
+          icon: 'delete',
+          type: 'text',
+          handler: row => {
+            this.$message('RUA in row clicked')
+            console.log('RUA in row clicked', row)
+          },
+          name: 'Delete'
+        }]
+      }
     }
   },
   methods: {
-    getUsers () {
-      const api = `http://localhost:3000/api/users`
-      Vue.axios.get(api).then(response => {
-        this.users = response.data
-      })
+    getRowActionsDef () {
+      let self = this
+      return [{
+        type: 'primary',
+        handler (row) {
+          self.$message('Edit clicked')
+          console.log('Edit in row clicked', row)
+        },
+        name: 'Edit'
+      }]
     }
+  },
+  beforeMount () {
+    const api = `http://localhost:3000/api/users`
+    Vue.axios.get(api).then(response => {
+      this.users = response.data
+    })
   }
 }
 </script>
 
 <style scoped>
+.table{
+  padding-left: 20%;
+}
 a:enabled{
   text-decoration: none;
   color: #2979ff;
