@@ -35,7 +35,6 @@ export default new Router({
     },
     {
       path: '/admin',
-      name: 'Admin',
       component: Admin
     },
     {
@@ -45,7 +44,6 @@ export default new Router({
     },
     {
       path: '/admin/stocks',
-      name: 'Stocks',
       component: Stocks
     },
     {
@@ -59,16 +57,10 @@ export default new Router({
       component: NotFound
     },
     {
-      path: '/stocks',
-      name: 'Stocks',
-      component: Stocks
-    },
-    {
       path: '/users',
       name: 'Users',
       component: Users
     },
-    // catch all redirect
     {
       path: '*',
       redirect: '/404',
@@ -76,21 +68,3 @@ export default new Router({
     }
   ]
 })
-
-/*
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (!auth.loggedIn()) {
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath }
-      })
-    } else {
-      next()
-    }
-  } else {
-    next() // make sure to always call next()!
-  }
-}) */

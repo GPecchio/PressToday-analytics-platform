@@ -2,10 +2,10 @@
   <div class="admin">
     <h1>{{ title }}</h1>
     <ul>
-      <li><el-button><router-link to="/login">Login</router-link></el-button></li>
-      <li><el-button><router-link to="/admin/sell">Sell</router-link></el-button></li>
-      <li><el-button><router-link to="/admin/stocks">Stocks</router-link></el-button></li>
-      <li><el-button><router-link to="/admin/users">Users</router-link></el-button></li>
+      <li><router-link to="/login"><el-button>Login</el-button></router-link></li>
+      <li><router-link to="/admin/sell"><el-button>Sell</el-button></router-link></li>
+      <li><router-link to="/admin/stocks"><el-button>Stocks</el-button></router-link></li>
+      <li><router-link to="/admin/users"><el-button>Users</el-button></router-link></li>
     </ul>
     <h3><router-link to="/">{{ back }}</router-link></h3>
   </div>

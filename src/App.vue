@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="1"><router-link to="/">Tuck Shop Manager</router-link></el-menu-item>  
+      <router-link to="/"><el-menu-item index="1">Tuck Shop Manager</el-menu-item></router-link>
       <el-submenu index="2">
         <template slot="title">Students</template>
-        <el-menu-item index="2-1"><router-link to="/students/">Dashboard</router-link></el-menu-item>
-        <el-menu-item index="2-2"><router-link to="/students/sell">Sell</router-link></el-menu-item>
+        <router-link to="/students/"><el-menu-item index="2-1">Dashboard</el-menu-item></router-link>
+        <router-link to="/students/sell"><el-menu-item index="2-2">Sell</el-menu-item></router-link>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title">Admin</template>
-        <el-menu-item index="3-1"><router-link to="/admin/">Dahsboard</router-link></el-menu-item>
-        <el-menu-item index="3-2"><router-link to="/admin/sell">Sell</router-link></el-menu-item>
-        <el-menu-item index="3-3"><router-link to="/admin/stocks">Stocks</router-link></el-menu-item>
-        <el-menu-item index="3-4"><router-link to="/admin/users">Users</router-link></el-menu-item>
+        <router-link to="/admin/"><el-menu-item index="3-1">Dahsboard</el-menu-item></router-link>
+        <router-link to="/admin/sell"><el-menu-item index="3-2">Sell</el-menu-item></router-link>
+        <router-link to="/admin/stocks"><el-menu-item index="3-3">Stocks</el-menu-item></router-link>
+        <router-link to="/admin/users"><el-menu-item index="3-4">Users</el-menu-item></router-link>
       </el-submenu>
       <el-menu-item index="4"><router-link to="/login">Login</router-link></el-menu-item>
     </el-menu>
