@@ -8,6 +8,14 @@ import 'element-ui/lib/theme-default/index.css'
 import DataTables from 'vue-data-tables'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import Vuex from 'vuex'
+import store from './store/store'
+
+Vue.use(VueAxios, axios)
+
+Vue.use(Vuex)
 
 locale.use(lang)
 
@@ -20,6 +28,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

@@ -2,11 +2,13 @@
   "users": [
     {
       "username": "spitcher",
-      "password": "test"
+      "password": "test",
+      "admin": true
     },
     {
       "username": "gpecchio",
-      "password": "test"
+      "password": "test",
+      "admin": false
     }
   ],
   "stocks": [
