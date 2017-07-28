@@ -8,7 +8,6 @@ import Admin from '@/components/Admin'
 import Stocks from '@/components/Stocks'
 import Users from '@/components/Users'
 import NotFound from '@/components/NotFound'
-import NewSell from '@/components/NewSell'
 
 Vue.use(Router)
 
