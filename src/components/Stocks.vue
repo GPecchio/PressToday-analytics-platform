@@ -28,7 +28,7 @@ export default {
   name: 'home',
   data () {
     return {
-      title: 'stocks available',
+      title: 'Stocks available',
       stocks: [],
       errorMsg: 'there was a problem while loading the page, please refresh',
       actionsDef: {

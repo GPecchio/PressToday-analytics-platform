@@ -27,7 +27,7 @@ export default {
   name: 'home',
   data () {
     return {
-      title: 'users registered',
+      title: 'Registered users',
       users: [],
       errorMsg: 'there was a problem while loading the page, please refresh',
       actionsDef: {

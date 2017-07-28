@@ -8,6 +8,7 @@ import Admin from '@/components/Admin'
 import Stocks from '@/components/Stocks'
 import Users from '@/components/Users'
 import NotFound from '@/components/NotFound'
+import NewSell from '@/components/NewSell'
 
 Vue.use(Router)
 
@@ -45,6 +46,10 @@ export default new Router({
     {
       path: '/admin/stocks',
       component: Stocks
+    },
+    {
+      path: '/newsell',
+      component: NewSell
     },
     {
       path: '/admin/users',

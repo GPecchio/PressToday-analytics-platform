@@ -9,7 +9,7 @@
               <b>How many products to sell?</b>
             </span>
             <span style="margin-right: 10px;">{{ productsNumber }}</span>
-            <span v-if="productsNumber > 1"><el-button @click="removeElement(index)" icon="minus"></el-button></span>
+            <span v-if="productsNumber > 0"><el-button @click="removeElement(index)" icon="minus"></el-button></span>
             <span v-else><el-button :disabled="true" icon="minus"></el-button></span>
             <span v-if="productsNumber < 10"><el-button @click="addRow()" icon="plus" style="margin-left: -3px;"></el-button></span>
             <span v-else><el-button :disabled="true" icon="plus"></el-button></span>

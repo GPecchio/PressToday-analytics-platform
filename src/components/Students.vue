@@ -14,7 +14,7 @@ export default {
   name: 'students',
   data () {
     return {
-      title: 'student dashboard',
+      title: 'Student dashboard',
       back: 'Back to hompage'
     }
   }
