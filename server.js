@@ -5,7 +5,9 @@ var cors = require('cors')
 var bodyParser = require('body-parser');
 var passport = require('passport');
 const LocalStrategy = require('passport-local');
-const appData = require('./data.json');
+
+const usersData = require('./usersData.json');
+const stocksData = require('./stocksData.json');
 
 //start body-parser configuration
 app.use(bodyParser.json() );
@@ -23,15 +25,12 @@ var server = app.listen(3000, "127.0.0.1", function () {
     console.log("Example app listening at http://%s:%s", host, port)
 });
 
-const userData = appData.users;
-const stocksData = appData.stocks;
-
 //rest api to get users
-app.get('/api/users', function (req, res) {
-    res.end(JSON.stringify(userData));
+app.get('/users', function (req, res) {
+    res.send(JSON.stringify(usersData));
 });
 
 //rest api to get stocks
-app.get('/api/stocks', function (req, res) {
-    res.end(JSON.stringify(stocksData));
+app.get('/stocks', function (req, res) {
+    res.send(JSON.stringify(stocksData));
 });

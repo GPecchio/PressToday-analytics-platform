@@ -1,0 +1,14 @@
+{
+	"users": [
+    {
+      "username": "spitcher",
+      "password": "test",
+      "admin": true
+    },
+    {
+      "username": "gpecchio",
+      "password": "test",
+      "admin": false
+    }
+  ]
+}
