@@ -48,10 +48,6 @@ export default new Router({
       component: Stocks
     },
     {
-      path: '/newsell',
-      component: NewSell
-    },
-    {
       path: '/admin/users',
       name: 'Users',
       component: Users
