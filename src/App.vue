@@ -5,7 +5,12 @@
       <el-menu-item index="/sell">Sell</el-menu-item>
       <el-menu-item index="/stocks">Stocks</el-menu-item>
       <el-menu-item index="/users">Users</el-menu-item>
-      <el-menu-item index="/login" style="float: right;"><el-button type="primary">Login</el-button></el-menu-item>
+      <el-menu-item v-if="!isLoggedIn" index="/login" style="float: right;">
+        <el-button type="primary">Login</el-button>
+      </el-menu-item>
+      <el-menu-item v-if="isLoggedIn" index="/login" style="float: right;">
+        <el-button type="primary" v-if="isLoggedIn" @click="logout">Logout</el-button>
+      </el-menu-item>
     </el-menu>
     <main>
       <router-view></router-view>
@@ -15,17 +20,27 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.getters.isLoggedIn
+    }
+  }
 }
 </script>
 
 <style>
-a:enabled{
+a:enabled {
   text-decoration: none;
   color: #2979ff;
 }
 
-a:active{
+a:active {
   text-decoration: none;
   color: white;
 }
