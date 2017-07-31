@@ -5,7 +5,7 @@
       <div class="table" v-if="users">
         <data-tables :data="users" :actions-def="actionsDef" :search-def="searchDef" :table-props="tableProps" :action-col-def="actionColDef" border style="width: 75%">
           <el-table-column prop="username" label="Username" sortable="custom" ></el-table-column>
-          <el-table-column prop="password" label="Password"></el-table-column>
+          <el-table-column prop="password" label="Password" type="password"></el-table-column>
         </data-tables>
       </div>
       <div v-else>
@@ -22,15 +22,7 @@ export default {
     return {
       title: 'Registered users',
       users: [],
-      errorMsg: 'there was a problem while loading the page, please refresh',
-      actionsDef: {
-        def: [{
-          name: 'new',
-          handler: () => {
-            this.$message('new clicked')
-          }
-        }]
-      },
+      errorMsg: 'There was a problem while loading the page, please refresh',
       searchDef: {
         inputProps: {
           placeholder: 'search'
@@ -42,6 +34,14 @@ export default {
           prop: 'username',
           order: 'ascending'
         }
+      },
+      actionsDef: {
+        def: [{
+          name: 'new',
+          handler: () => {
+            this.$message('new clicked')
+          }
+        }]
       },
       actionColDef: {
         label: 'Actions',
@@ -77,10 +77,7 @@ export default {
     }
   },
   beforeMount () {
-    this.users = [{'username': 'spitcher', 'password': 'test', 'admin': true}, {'username': 'gpitcher', 'password': 'test', 'admin': false}]
-    for (var i = 0; i < this.users.length; i++) {
-      this.users[i].password = '*******'
-    }
+    this.users = [{'username': 'gpecchio', 'password': 'test', 'admin': true}, {'username': 'gpitcher', 'password': 'test', 'admin': false}]
   }
 }
 </script>

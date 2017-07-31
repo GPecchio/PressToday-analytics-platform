@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-alert style="margin-top: -20px; margin-right: 20px; width: 25%; float: right; z-index: 0; position: relative;" v-if="isLoggedIn" title="Login successful" type="success" description="You are now logged in" show-icon></el-alert>
+    <el-alert class="alert" v-if="isLoggedIn" title="Login successful" type="success" description="You are now logged in" show-icon></el-alert>
     <div class="login" v-if="!isLoggedIn">
       <h1>{{ title }} with your school<br>credentials</h1>
         <br>
@@ -9,8 +9,8 @@
           <el-form-item prop="username" label="Username" type="text">
             <el-input v-model="username"></el-input>
           </el-form-item>
-          <el-form-item prop="password" label="Password" type="password">
-            <el-input v-model="password"></el-input>
+          <el-form-item prop="password" label="Password">
+            <el-input v-model="password" type="password"></el-input>
           </el-form-item>
           <br>
           <el-form-item label-width="25px">
@@ -72,6 +72,15 @@ a:enabled{
   padding-right: 25px;
   margin-left: 36.5%;
   width: 25%;
+}
+
+.alert{
+  margin-top: -20px;
+  margin-right: 20px;
+  width: 25%;
+  float: right;
+  z-index: 0;
+  position: relative;
 }
 
 .else-login{
