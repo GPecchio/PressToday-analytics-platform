@@ -27,7 +27,7 @@ export default new Vuex.Store({
     login ({
       commit
     }, creds) {
-      commit(LOGIN) // show spinner
+      commit(LOGIN)
       return new Promise(resolve => {
         setTimeout(() => {
           localStorage.setItem('token', 'JWT')

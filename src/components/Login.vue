@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-alert class="alert" v-if="isLoggedIn" title="Login successful" type="success" description="You are now logged in" show-icon></el-alert>
+    <el-alert class="alert" v-if="wrongLogin" title="Wrong username or password" type="error" show-icon></el-alert>
     <div class="login" v-if="!isLoggedIn">
       <h1>{{ title }} with your school<br>credentials</h1>
         <br>
@@ -26,24 +27,34 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   data () {
     return {
       title: 'Login',
       password: '',
       username: '',
-      dialogVisible: false
+      api: 'http://localhost:3000/api/users',
+      usersApi: [],
+      users: [],
+      wrongLogin: false
     }
   },
   methods: {
     login () {
-      this.$store.dispatch('login', {
-        username: this.username,
-        password: this.password
-      }).then(() => {
-        this.dialogVisible = true
-        this.$router.push('/')
-      })
+      for (var i = 0; i < this.users.length; i++) {
+        if (this.users[i].username === this.username && this.users[i].password === this.password) {
+          this.$store.dispatch('login', {
+            username: this.username,
+            password: this.password
+          }).then(() => {
+            this.$router.push('/')
+          })
+        } else {
+          this.wrongLogin = true
+        }
+      }
     },
     handleClose (done) {
       this.$confirm('Are you sure to close this dialog?')
@@ -57,6 +68,14 @@ export default {
     isLoggedIn () {
       return this.$store.getters.isLoggedIn
     }
+  },
+  beforeMount () {
+    Vue.axios.get('http://localhost:3000/api/users').then(response => {
+      this.usersApi = response.data
+      for (var i = 0; i < this.usersApi.users.length; i++) {
+        this.users[i] = this.usersApi.users[i]
+      }
+    })
   }
 }
 </script>
@@ -67,13 +86,6 @@ a:enabled{
   color: #2979ff;
 }
 
-.box-card {
-  padding-top: 15px;
-  padding-right: 25px;
-  margin-left: 36.5%;
-  width: 25%;
-}
-
 .alert{
   margin-top: -20px;
   margin-right: 20px;
@@ -81,6 +93,12 @@ a:enabled{
   float: right;
   z-index: 0;
   position: relative;
+}
+
+.login{
+  margin-left: 36.5%;
+  z-index: -1;
+  position: absolute;
 }
 
 .else-login{

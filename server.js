@@ -26,11 +26,11 @@ var server = app.listen(3000, "127.0.0.1", function () {
 });
 
 //rest api to get users
-app.get('/users', function (req, res) {
+app.get('/api/users', function (req, res) {
     res.send(JSON.stringify(usersData));
 });
 
 //rest api to get stocks
-app.get('/stocks', function (req, res) {
+app.get('/api/stocks', function (req, res) {
     res.send(JSON.stringify(stocksData));
 });
