@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" :router="true">
-      <el-menu-item index="/">Tuck Shop Manager</el-menu-item>
+      <el-menu-item>Tuck Shop Manager</el-menu-item>
       <el-menu-item index="/sell">Sell</el-menu-item>
       <el-menu-item index="/stocks">Stocks</el-menu-item>
       <el-menu-item index="/users">Users</el-menu-item>
