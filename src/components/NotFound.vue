@@ -1,7 +1,7 @@
 <template>
   <div class="NotFound">
     <h1>{{ title }}</h1>
-    <h3><router-link to="/">{{ back }}</router-link></h3>
+    <router-link to="/"><h3>{{ back }}</h3></router-link>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
   data () {
     return {
       title: '404 - The page requested was not found',
-      back: 'back to homepage'
+      back: 'Back to homepage'
     }
   }
 }

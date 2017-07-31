@@ -49,7 +49,6 @@
         </div>
       </el-card>
     </div>
-    <h3><router-link to="/admin">{{ back }}</router-link></h3>
   </div>
 </template>
 
@@ -65,7 +64,6 @@ export default {
   data () {
     return {
       title: 'Sell',
-      back: 'Back to dashboard',
       rows: [],
       productsNumber: 0
     }

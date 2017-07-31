@@ -1,20 +1,11 @@
 <template>
   <div id="app">
-    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <router-link to="/"><el-menu-item index="1">Tuck Shop Manager</el-menu-item></router-link>
-      <el-submenu index="2">
-        <template slot="title">Students</template>
-        <router-link to="/students/"><el-menu-item index="2-1">Dashboard</el-menu-item></router-link>
-        <router-link to="/students/sell"><el-menu-item index="2-2">Sell</el-menu-item></router-link>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title">Admin</template>
-        <router-link to="/admin/"><el-menu-item index="3-1">Dahsboard</el-menu-item></router-link>
-        <router-link to="/admin/sell"><el-menu-item index="3-2">Sell</el-menu-item></router-link>
-        <router-link to="/admin/stocks"><el-menu-item index="3-3">Stocks</el-menu-item></router-link>
-        <router-link to="/admin/users"><el-menu-item index="3-4">Users</el-menu-item></router-link>
-      </el-submenu>
-      <el-menu-item index="4"><router-link to="/login">Login</router-link></el-menu-item>
+    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" :router="true">
+      <el-menu-item index="/">Tuck Shop Manager</el-menu-item>
+      <el-menu-item index="/sell">Sell</el-menu-item>
+      <el-menu-item index="/stocks">Stocks</el-menu-item>
+      <el-menu-item index="/users">Users</el-menu-item>
+      <el-menu-item index="/login" style="float: right;"><el-button type="primary">Login</el-button></el-menu-item>
     </el-menu>
     <main>
       <router-view></router-view>
@@ -32,6 +23,11 @@ export default {
 a:enabled{
   text-decoration: none;
   color: #2979ff;
+}
+
+a:active{
+  text-decoration: none;
+  color: white;
 }
 
 body {

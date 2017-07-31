@@ -29,8 +29,6 @@
         </el-form-item>
       </el-form>
     </el-card>
-      <br>
-    <h3><router-link to="/">{{ back }}</router-link></h3>
   </div>
 </template>
 
@@ -42,7 +40,6 @@ export default {
       title: 'Login',
       usernameInput: '',
       passwordInput: '',
-      back: 'Back to homepage',
       dynamicValidateForm: {
         password: '',
         username: ''
