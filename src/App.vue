@@ -23,6 +23,12 @@ export default {
   name: 'app',
   methods: {
     logout () {
+      this.$notify.warning({
+        title: 'Warning',
+        message: 'Logged out successfully',
+        duration: 3000,
+        offset: 50
+      })
       this.$store.dispatch('logout')
     }
   },
@@ -47,9 +53,6 @@ a:active {
 
 body {
   margin: 0;
-}
-
-#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

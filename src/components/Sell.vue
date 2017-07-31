@@ -49,6 +49,7 @@
         </div>
       </el-card>
     </div>
+    <router-link to="/"><h3>Back</h3></router-link>
   </div>
 </template>
 

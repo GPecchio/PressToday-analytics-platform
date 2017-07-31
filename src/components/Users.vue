@@ -12,6 +12,7 @@
         <p>{{ errorMsg }}</p>
       </div>
     </div>
+    <router-link to="/"><h3>Back</h3></router-link>
   </div>
 </template>
 

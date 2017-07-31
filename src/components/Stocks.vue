@@ -13,7 +13,7 @@
         <p>{{ errorMsg }}</p>
       </div>
     </div>
-    <h3><router-link to="/admin">Back to dashboard</router-link></h3>
+    <router-link to="/"><h3>Back</h3></router-link>
   </div>
 </template>
 

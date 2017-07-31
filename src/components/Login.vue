@@ -1,7 +1,5 @@
 <template>
   <div>
-    <el-alert class="alert" v-if="isLoggedIn" title="Login successful" type="success" description="You are now logged in" show-icon></el-alert>
-    <el-alert class="alert" v-if="wrongLogin" title="Wrong username or password" type="error" show-icon></el-alert>
     <div class="login" v-if="!isLoggedIn">
       <h1>{{ title }} with your school<br>credentials</h1>
         <br>
@@ -22,6 +20,9 @@
     </div>
     <div class="else-login" v-if="isLoggedIn">
       <h1>You are already logged in</h1>
+      <router-link to="/sell"><el-button><h3>Go to Sell page</h3></el-button></router-link>
+      <router-link to="/stocks"><el-button><h3>Go to Stocks page</h3></el-button></router-link>
+      <router-link to="/users"><el-button><h3>Go to Users page</h3></el-button></router-link>
     </div>
   </div>
 </template>
@@ -38,6 +39,7 @@ export default {
       api: 'http://localhost:3000/api/users',
       usersApi: [],
       users: [],
+      outcome: false,
       wrongLogin: false
     }
   },
@@ -45,24 +47,37 @@ export default {
     login () {
       for (var i = 0; i < this.users.length; i++) {
         if (this.users[i].username === this.username && this.users[i].password === this.password) {
-          this.wrongLogin = false
-          this.$store.dispatch('login', {
-            username: this.username,
-            password: this.password
-          }).then(() => {
-            this.$router.push('/sell')
-          })
+          this.outcome = true
         } else {
-          this.wrongLogin = true
+          this.outcome = false
         }
       }
-    },
-    handleClose (done) {
-      this.$confirm('Are you sure to close this dialog?')
-        .then(_ => {
-          done()
+      if (this.outcome) {
+        this.$store.dispatch('login', {
+          username: this.username,
+          password: this.password
+        }).then(() => {
+          this.$router.push('/')
+          this.$notify.success({
+            title: 'Success',
+            message: 'You are now logged in',
+            duration: 3000,
+            offset: 50
+          })
         })
-        .catch(_ => {})
+      } else {
+        this.$notify.error({
+          title: 'Error',
+          message: 'Wrong username or password',
+          duration: 3000,
+          offset: 50
+        })
+      }
+    },
+    open3 () {
+    },
+
+    open4 () {
     }
   },
   computed: {
@@ -87,15 +102,6 @@ a:enabled{
   color: #2979ff;
 }
 
-.alert{
-  margin-top: -20px;
-  margin-right: 20px;
-  width: 25%;
-  float: right;
-  z-index: 0;
-  position: relative;
-}
-
 .login{
   margin-left: 36.5%;
   z-index: -1;
@@ -103,7 +109,7 @@ a:enabled{
 }
 
 .else-login{
-  margin-left: 36.5%;
+  margin-left: 31.5%;
   z-index: -1;
   position: absolute;
 }
