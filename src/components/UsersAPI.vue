@@ -51,16 +51,14 @@ export default {
           icon: 'edit',
           type: 'text',
           handler: row => {
-            this.$message('RUA in row clicked')
-            console.log('RUA in row clicked', row)
+            this.$message('Edit clicked')
           },
           name: 'Edit'
         }, {
           icon: 'delete',
           type: 'text',
           handler: row => {
-            this.$message('RUA in row clicked')
-            console.log('RUA in row clicked', row)
+            this.$message('Delete row clicked')
           },
           name: 'Delete'
         }]

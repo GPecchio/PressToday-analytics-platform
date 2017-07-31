@@ -72,6 +72,7 @@ export default {
     const api = `http://localhost:3000/api/stocks`
     Vue.axios.get(api).then(response => {
       this.stocks = response.data
+      this.stocks = this.stocks.stocks
     })
   }
 }

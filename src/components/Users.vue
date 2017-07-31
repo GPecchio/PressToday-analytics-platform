@@ -5,7 +5,7 @@
       <div class="table" v-if="users">
         <data-tables :data="users" :actions-def="actionsDef" :search-def="searchDef" :table-props="tableProps" :action-col-def="actionColDef" border style="width: 75%">
           <el-table-column prop="username" label="Username" sortable="custom" ></el-table-column>
-          <el-table-column prop="password" label="Password" type="password"></el-table-column>
+          <el-table-column prop="password" label="Password" sortable="custom"></el-table-column>
         </data-tables>
       </div>
       <div v-else>
@@ -16,13 +16,23 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'home',
   data () {
     return {
       title: 'Registered users',
       users: [],
-      errorMsg: 'There was a problem while loading the page, please refresh',
+      errorMsg: 'there was a problem while loading the page, please refresh',
+      actionsDef: {
+        def: [{
+          name: 'new',
+          handler: () => {
+            this.$message('new clicked')
+          }
+        }]
+      },
       searchDef: {
         inputProps: {
           placeholder: 'search'
@@ -34,14 +44,6 @@ export default {
           prop: 'username',
           order: 'ascending'
         }
-      },
-      actionsDef: {
-        def: [{
-          name: 'new',
-          handler: () => {
-            this.$message('new clicked')
-          }
-        }]
       },
       actionColDef: {
         label: 'Actions',
@@ -77,7 +79,11 @@ export default {
     }
   },
   beforeMount () {
-    this.users = [{'username': 'gpecchio', 'password': 'test', 'admin': true}, {'username': 'gpitcher', 'password': 'test', 'admin': false}]
+    const api = `http://localhost:3000/api/users`
+    Vue.axios.get(api).then(response => {
+      this.users = response.data
+      this.users = this.users.users
+    })
   }
 }
 </script>

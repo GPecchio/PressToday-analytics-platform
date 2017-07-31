@@ -45,11 +45,12 @@ export default {
     login () {
       for (var i = 0; i < this.users.length; i++) {
         if (this.users[i].username === this.username && this.users[i].password === this.password) {
+          this.wrongLogin = false
           this.$store.dispatch('login', {
             username: this.username,
             password: this.password
           }).then(() => {
-            this.$router.push('/')
+            this.$router.push('/sell')
           })
         } else {
           this.wrongLogin = true
