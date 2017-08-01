@@ -25,12 +25,56 @@ var server = app.listen(3000, "127.0.0.1", function () {
     console.log("Example app listening at http://%s:%s", host, port)
 });
 
+/*      Users       */
 //rest api to get users
 app.get('/api/users', function (req, res) {
     res.send(JSON.stringify(usersData));
 });
+//rest api to post new user
+app.post('/api/users', (req, res) => {
+  let user = {
+    username: req.body.username,
+    password: req.body.password,
+    admin: req.body.admin,
+  };
+  usersData.users.push(user);
+  res.json(user);
+});
 
+/* app.put('/api/users/:username', (request, response) => {
+
+  let userName = request.params.username;
+
+  let user = usersData.users.filter(user => {
+    return user.name == userName;
+  })[0];
+
+  const index = usersData.users.indexOf(user);
+
+  let keys = Object.keys(request.body);
+
+  keys.forEach(key => {
+    user[key] = request.body[key];
+  });
+
+  usersData.users[index] = contact;
+
+  // response.json({ message: `User ${contactId} updated.`});
+  response.json(contacts[index]);
+}); */
+
+/*      Stocks      */
 //rest api to get stocks
 app.get('/api/stocks', function (req, res) {
     res.send(JSON.stringify(stocksData));
+});
+//rest api to post new stocks
+app.post('/api/stocks', (req, res) => {
+  let stock = {
+    name: req.body.name,
+    price: req.body.price,
+    quantity: req.body.quantity,
+  };
+  stocksData.stocks.push(stock);
+  res.json(stock);
 });
