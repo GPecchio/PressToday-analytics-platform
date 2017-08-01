@@ -74,8 +74,6 @@ export default {
         })
         if (this.admin) {
           this.$store.dispatch('setAdmin', {
-            /* username: this.username,
-            password: this.password */
           }).then(() => {
             this.$router.push('/')
             this.$notify.success({

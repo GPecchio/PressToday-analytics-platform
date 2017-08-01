@@ -35,6 +35,9 @@ export default {
   computed: {
     isLoggedIn () {
       return this.$store.getters.isLoggedIn
+    },
+    isAdmin () {
+      return this.$store.getters.isAdmin
     }
   }
 }
