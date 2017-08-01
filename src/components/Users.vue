@@ -1,7 +1,7 @@
 <template>
   <div class="users">
-    <h1>{{ title }}</h1>
-    <div id="main-users">
+    <div id="main-users" v-if="isLoggedIn && isAdmin">
+      <h1>{{ title }}</h1>
       <div class="table" v-if="users">
         <data-tables :data="users" :actions-def="actionsDef" :search-def="searchDef" :table-props="tableProps" :action-col-def="actionColDef" border style="width: 75%">
           <el-table-column prop="username" label="Username" sortable="custom" ></el-table-column>
@@ -11,6 +11,12 @@
       <div v-else>
         <p>{{ errorMsg }}</p>
       </div>
+    </div>
+    <div v-else-if="isLoggedIn && !isAdmin">
+      <h1>You have to be logged in as admin to access this page</h1>
+    </div>
+    <div v-else-if="!isLoggedIn">
+      <h1>You have to be logged in to access this page</h1>
     </div>
     <router-link to="/"><h3>Back</h3></router-link>
   </div>
@@ -77,6 +83,14 @@ export default {
         },
         name: 'Edit'
       }]
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.getters.isLoggedIn
+    },
+    isAdmin () {
+      return this.$store.getters.isAdmin
     }
   },
   beforeMount () {

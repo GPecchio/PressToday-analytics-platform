@@ -40,6 +40,7 @@ export default {
       usersApi: [],
       users: [],
       outcome: false,
+      admin: false,
       wrongLogin: false
     }
   },
@@ -48,7 +49,13 @@ export default {
       for (var i = 0; i < this.users.length; i++) {
         if (this.users[i].username === this.username && this.users[i].password === this.password) {
           this.outcome = true
+          this.admin = false
+          if (this.users[i].admin === true) {
+            this.admin = true
+          }
+          break
         } else {
+          this.admin = false
           this.outcome = false
         }
       }
@@ -65,6 +72,20 @@ export default {
             offset: 50
           })
         })
+        if (this.admin) {
+          this.$store.dispatch('setAdmin', {
+            /* username: this.username,
+            password: this.password */
+          }).then(() => {
+            this.$router.push('/')
+            this.$notify.success({
+              title: 'Success',
+              message: 'You are logged in as admin',
+              duration: 3000,
+              offset: 50
+            })
+          })
+        }
       } else {
         this.$notify.error({
           title: 'Error',
@@ -73,11 +94,6 @@ export default {
           offset: 50
         })
       }
-    },
-    open3 () {
-    },
-
-    open4 () {
     }
   },
   computed: {

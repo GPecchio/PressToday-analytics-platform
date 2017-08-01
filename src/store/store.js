@@ -5,11 +5,13 @@ Vue.use(Vuex)
 
 const LOGIN = 'LOGIN'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+const ADMIN_SUCCESS = 'ADMIN_SUCCESS'
 const LOGOUT = 'LOGOUT'
 
 export default new Vuex.Store({
   state: {
-    isLoggedIn: !!localStorage.getItem('token')
+    isLoggedIn: !!localStorage.getItem('token'),
+    isAdmin: !!localStorage.getItem('token2')
   },
   mutations: {
     [LOGIN] (state) {
@@ -19,7 +21,11 @@ export default new Vuex.Store({
       state.isLoggedIn = true
       state.pending = false
     },
+    [ADMIN_SUCCESS] (state) {
+      state.isAdmin = true
+    },
     [LOGOUT] (state) {
+      state.isAdmin = false
       state.isLoggedIn = false
     }
   },
@@ -40,12 +46,28 @@ export default new Vuex.Store({
       commit
     }) {
       localStorage.removeItem('token')
+      localStorage.removeItem('token2')
       commit(LOGOUT)
+    },
+    setAdmin ({
+      commit
+    }, creds) {
+      commit(LOGIN)
+      return new Promise(resolve => {
+        setTimeout(() => {
+          localStorage.setItem('token2', 'JWT')
+          commit(ADMIN_SUCCESS)
+          resolve()
+        }, 1000)
+      })
     }
   },
   getters: {
     isLoggedIn: state => {
       return state.isLoggedIn
+    },
+    isAdmin: state => {
+      return state.isAdmin
     }
   }
 })

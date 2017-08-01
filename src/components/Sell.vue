@@ -1,6 +1,6 @@
 <template>
   <div class="stocks">
-    <div id="main-sell">
+    <div id="main-sell" v-if="isLoggedIn">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span style="float: left;" class="title">{{ title }}</span>
@@ -49,6 +49,9 @@
         </div>
       </el-card>
     </div>
+    <div v-if="!isLoggedIn">
+      <h1>You have to be logged in to access this page</h1>
+    </div>
     <router-link to="/"><h3>Back</h3></router-link>
   </div>
 </template>
@@ -94,6 +97,11 @@ export default {
     removeElement (index) {
       this.productsNumber -= 1
       this.rows.splice(index, 1)
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.getters.isLoggedIn
     }
   },
   beforeMount () {
