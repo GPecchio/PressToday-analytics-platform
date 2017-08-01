@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="login" v-if="!isLoggedIn">
-      <h1>{{ title }} with your school<br>credentials</h1>
-        <br>
+      <h1>{{ title }} with your school
+        <br>credentials</h1>
+      <br>
       <el-card class="box-card">
         <el-form ref="" label-width="100px" class="demo-dynamic">
           <el-form-item prop="username" label="Username" type="text">
@@ -19,10 +20,22 @@
       </el-card>
     </div>
     <div class="else-login" v-if="isLoggedIn">
-      <h1>You are already logged in</h1>
-      <router-link to="/sell"><el-button><h3>Go to Sell page</h3></el-button></router-link>
-      <router-link to="/stocks"><el-button><h3>Go to Stocks page</h3></el-button></router-link>
-      <router-link to="/users"><el-button><h3>Go to Users page</h3></el-button></router-link>
+      <h1>You are logged in</h1>
+      <router-link to="/sell">
+        <el-button>
+          <h3>Go to Sell page</h3>
+        </el-button>
+      </router-link>
+      <router-link to="/stocks">
+        <el-button>
+          <h3>Go to Stocks page</h3>
+        </el-button>
+      </router-link>
+      <router-link to="/users">
+        <el-button>
+          <h3>Go to Users page</h3>
+        </el-button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -65,25 +78,25 @@ export default {
           password: this.password
         }).then(() => {
           this.$router.push('/')
-          this.$notify.success({
-            title: 'Success',
-            message: 'You are now logged in',
-            duration: 3000,
-            offset: 50
-          })
-        })
-        if (this.admin) {
-          this.$store.dispatch('setAdmin', {
-          }).then(() => {
-            this.$router.push('/')
+          if (this.admin) {
+            this.$store.dispatch('setAdmin', {
+            }).then(() => {
+              this.$notify.success({
+                title: 'Success',
+                message: 'You are now logged in as admin',
+                duration: 3000,
+                offset: 50
+              })
+            })
+          } else {
             this.$notify.success({
               title: 'Success',
-              message: 'You are logged in as admin',
+              message: 'You are now logged in',
               duration: 3000,
               offset: 50
             })
-          })
-        }
+          }
+        })
       } else {
         this.$notify.error({
           title: 'Error',
@@ -111,18 +124,18 @@ export default {
 </script>
 
 <style scoped>
-a:enabled{
+a:enabled {
   text-decoration: none;
   color: #2979ff;
 }
 
-.login{
+.login {
   margin-left: 36.5%;
   z-index: -1;
   position: absolute;
 }
 
-.else-login{
+.else-login {
   margin-left: 31.5%;
   z-index: -1;
   position: absolute;

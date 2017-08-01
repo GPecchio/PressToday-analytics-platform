@@ -90,7 +90,7 @@ export default {
     },
     removeElement (index) {
       this.productsNumber -= 1
-      this.rows.splice(index, 1)
+      this.rows.splice(-1, 1)
     }
   },
   computed: {
