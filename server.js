@@ -39,7 +39,7 @@ app.post('/api/users', (req, res) => {
   let user = {
     username: req.body.body.username,
     password: req.body.body.password,
-    admin: req.body.body.admin,
+    admin: req.body.body.admin
   };
   usersData.users.push(user)
   jsonfile.writeFile(usersFile, usersData, {spaces: 2}, 'utf-8', function (err) {
@@ -48,27 +48,22 @@ app.post('/api/users', (req, res) => {
   res.send(usersData);
 });
 
-/* app.put('/api/users/:username', (request, response) => {
-
-  let userName = request.params.username;
-
-  let user = usersData.users.filter(user => {
-    return user.name == userName;
-  })[0];
-
-  const index = usersData.users.indexOf(user);
-
-  let keys = Object.keys(request.body);
-
-  keys.forEach(key => {
-    user[key] = request.body[key];
-  });
-
-  usersData.users[index] = contact;
-
-  // response.json({ message: `User ${contactId} updated.`});
-  response.json(contacts[index]);
-}); */
+app.put('/api/users/:username', (req, res) => {
+  for (var i = 0; i < usersData.users.length; i++) {
+    if(usersData.users[i].username === req.params.username){
+      usersData.users[i] = {
+        username: req.body.username,
+        password: req.body.password,
+        admin: req.body.admin
+      };
+      jsonfile.writeFile(usersFile, usersData, {spaces: 2}, 'utf-8', function (err) {
+        if (err) throw err
+      })
+      res.send(usersData);
+      break
+    }
+  }
+});
 
 /*      Stocks      */
 //rest api to get stocks
@@ -80,7 +75,7 @@ app.post('/api/stocks', (req, res) => {
   let stock = {
     name: req.body.body.name,
     price: req.body.body.price,
-    quantity: req.body.body.quantity,
+    quantity: req.body.body.quantity
   };
   stocksData.stocks.push(stock);
   jsonfile.writeFile(stocksFile, stocksData, {spaces: 2}, 'utf-8', function (err) {

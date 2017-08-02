@@ -4,6 +4,9 @@ import Login from '@/components/Login'
 import Sell from '@/components/Sell'
 import Stocks from '@/components/Stocks'
 import Users from '@/components/Users'
+import UsersNew from '@/components/UsersCUD/New'
+import UsersEdit from '@/components/UsersCUD/Edit'
+import UsersDelete from '@/components/UsersCUD/Delete'
 import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
@@ -33,7 +36,17 @@ export default new Router({
     {
       path: '/users',
       name: 'Users',
-      component: Users
+      component: Users,
+      children: [
+        {
+          path: 'edit',
+          component: UsersEdit
+        },
+        {
+          path: 'delete',
+          component: UsersDelete
+        }
+      ]
     },
     {
       path: '/404',
