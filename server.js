@@ -37,15 +37,15 @@ app.get('/api/users', function (req, res) {
 //rest api to post new user
 app.post('/api/users', (req, res) => {
   let user = {
-    username: req.body.username,
-    password: req.body.password,
-    admin: req.body.admin,
+    username: req.body.body.username,
+    password: req.body.body.password,
+    admin: req.body.body.admin,
   };
-  usersData.users.push(user);
-  jsonfile.writeFile(usersFile, usersData, 'utf-8', function (err) {
+  usersData.users.push(user)
+  jsonfile.writeFile(usersFile, usersData, {spaces: 2}, 'utf-8', function (err) {
     if (err) throw err
   })
-  res.json(user);
+  res.send(usersData);
 });
 
 /* app.put('/api/users/:username', (request, response) => {
@@ -78,13 +78,13 @@ app.get('/api/stocks', function (req, res) {
 //rest api to post new stocks
 app.post('/api/stocks', (req, res) => {
   let stock = {
-    name: req.body.name,
-    price: req.body.price,
-    quantity: req.body.quantity,
+    name: req.body.body.name,
+    price: req.body.body.price,
+    quantity: req.body.body.quantity,
   };
   stocksData.stocks.push(stock);
-  jsonfile.writeFile(stocksFile, stocksData, 'utf-8', function (err) {
+  jsonfile.writeFile(stocksFile, stocksData, {spaces: 2}, 'utf-8', function (err) {
     if (err) throw err
   })
-  res.json(stock);
+  res.send(stocksData)
 });

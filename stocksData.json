@@ -2,28 +2,33 @@
   "stocks": [
     {
       "name": "Pringles",
-      "price": 2.30,
+      "price": 2.3,
       "quantity": 5
     },
     {
       "name": "Doritos",
-      "price": 1.20,
+      "price": 1.2,
       "quantity": 7
     },
     {
       "name": "Haribo",
-      "price": 1.00,
+      "price": 1,
       "quantity": 10
     },
     {
       "name": "Drench",
-      "price": 2.00,
+      "price": 2,
       "quantity": 4
     },
     {
       "name": "Pepsi",
-      "price": 0.60,
+      "price": 0.6,
       "quantity": 14
+    },
+    {
+      "name": "pringles green",
+      "price": 2.3,
+      "quantity": 100
     }
   ]
 }

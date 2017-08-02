@@ -8,6 +8,23 @@
           <el-table-column prop="price" label="Price" sortable="custom"></el-table-column>
           <el-table-column prop="quantity" label="Quantity" sortable="custom"></el-table-column>
         </data-tables>
+        <el-dialog title="Add a new stock" :visible.sync="dialogFormVisible">
+          <el-form :model="form">
+            <el-form-item label="Name" :label-width="formLabelWidth">
+              <el-input v-model="form.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="Price" :label-width="formLabelWidth">
+              <el-input-number v-model.number="form.price" :change="handleChange" :step="1" :min="0" :max="1000"></el-input-number>
+            </el-form-item>
+            <el-form-item label="Quantity" :label-width="formLabelWidth">
+              <el-input-number v-model.number="form.quantity" :change="handleChange" :step="1" :min="0" :max="1000"></el-input-number>
+            </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="confirmSubmit()">Confirm</el-button>
+          </span>
+        </el-dialog>
       </div>
       <div v-else>
         <p>{{ errorMsg }}</p>
@@ -33,13 +50,20 @@ export default {
       title: 'Stocks available',
       stocks: [],
       errorMsg: 'there was a problem while loading the page, please refresh',
+      api: 'http://localhost:3000/api/stocks',
       actionsDef: {
         def: [{
           name: 'new',
           handler: () => {
-            this.$message('new clicked')
+            this.dialogFormVisible = true
           }
         }]
+      },
+      dialogFormVisible: false,
+      form: {
+        name: '',
+        price: 0,
+        quantity: 0
       },
       searchDef: {
         inputProps: {
@@ -73,6 +97,24 @@ export default {
       }
     }
   },
+  methods: {
+    handleChange (value) {
+      console.log(value)
+    },
+    confirmSubmit () {
+      this.dialogFormVisible = false
+      Vue.axios.post(this.api, {
+        body: this.form
+      })
+      .then(response => {
+        this.stocks = response.data
+        this.stocks = this.stocks.stocks
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    }
+  },
   computed: {
     isLoggedIn () {
       return this.$store.getters.isLoggedIn
@@ -82,8 +124,7 @@ export default {
     }
   },
   beforeMount () {
-    const api = `http://localhost:3000/api/stocks`
-    Vue.axios.get(api).then(response => {
+    Vue.axios.get(this.api).then(response => {
       this.stocks = response.data
       this.stocks = this.stocks.stocks
     })

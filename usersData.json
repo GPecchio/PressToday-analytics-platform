@@ -1,1 +1,24 @@
-{"users":[{"username":"spitcher","password":"test","admin":true},{"username":"gpecchio","password":"test","admin":false},{"username":"lbernini","password":"test","admin":false}]}
+{
+  "users": [
+    {
+      "username": "spitcher",
+      "password": "test",
+      "admin": true
+    },
+    {
+      "username": "gpecchio",
+      "password": "test",
+      "admin": false
+    },
+    {
+      "username": "lbernini",
+      "password": "test",
+      "admin": false
+    },
+    {
+      "username": "tcapelli",
+      "password": "test",
+      "admin": false
+    }
+  ]
+}
