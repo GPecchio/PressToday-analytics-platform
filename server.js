@@ -5,9 +5,13 @@ var cors = require('cors')
 var bodyParser = require('body-parser');
 var passport = require('passport');
 const LocalStrategy = require('passport-local');
+var jsonfile = require('jsonfile')
 
 const usersData = require('./usersData.json');
 const stocksData = require('./stocksData.json');
+
+var usersFile = './usersData.json'
+var stocksFile = './stocksData.json'
 
 //start body-parser configuration
 app.use(bodyParser.json() );
@@ -38,6 +42,9 @@ app.post('/api/users', (req, res) => {
     admin: req.body.admin,
   };
   usersData.users.push(user);
+  jsonfile.writeFile(usersFile, usersData, 'utf-8', function (err) {
+    if (err) throw err
+  })
   res.json(user);
 });
 
@@ -76,5 +83,8 @@ app.post('/api/stocks', (req, res) => {
     quantity: req.body.quantity,
   };
   stocksData.stocks.push(stock);
+  jsonfile.writeFile(stocksFile, stocksData, 'utf-8', function (err) {
+    if (err) throw err
+  })
   res.json(stock);
 });
