@@ -114,6 +114,9 @@ export default {
         .then(response => {
           this.users = response.data
           this.users = this.users.users
+          for (var i = 0; i < this.users.length; i++) {
+            this.users[i].admin = this.users[i].admin.toString()
+          }
         })
         .catch(e => {
           this.errors.push(e)

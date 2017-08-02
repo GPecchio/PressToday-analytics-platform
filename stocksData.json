@@ -24,11 +24,6 @@
       "name": "Pepsi",
       "price": 0.6,
       "quantity": 14
-    },
-    {
-      "name": "pringles green",
-      "price": 2.3,
-      "quantity": 100
     }
   ]
 }
