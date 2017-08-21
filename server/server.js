@@ -47,19 +47,15 @@ app.post('/api/users', (req, res) => {
   })
   res.send(usersData);
 });
-
-app.put('/api/users/:username', (req, res) => {
+//rest api to delete a user
+app.delete('/api/users/:username', (req, res) => {
   for (var i = 0; i < usersData.users.length; i++) {
     if(usersData.users[i].username === req.params.username){
-      usersData.users[i] = {
-        username: req.body.username,
-        password: req.body.password,
-        admin: req.body.admin
-      };
+      usersData.users.splice(i,1)
       jsonfile.writeFile(usersFile, usersData, {spaces: 2}, 'utf-8', function (err) {
         if (err) throw err
       })
-      res.send(usersData);
+      res.send(usersData)
       break
     }
   }
@@ -82,4 +78,17 @@ app.post('/api/stocks', (req, res) => {
     if (err) throw err
   })
   res.send(stocksData)
+});
+//rest api to delete a stock
+app.delete('/api/stocks/:name', (req, res) => {
+  for (var i = 0; i < stocksData.stocks.length; i++) {
+    if(stocksData.stocks[i].name === req.params.name){
+      stocksData.stocks.splice(i,1)
+      jsonfile.writeFile(stocksFile, stocksData, {spaces: 2}, 'utf-8', function (err) {
+        if (err) throw err
+      })
+      res.send(stocksData)
+      break
+    }
+  }
 });

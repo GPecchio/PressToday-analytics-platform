@@ -9,9 +9,9 @@
           <el-table-column prop="password" label="Password" sortable="custom"></el-table-column>
           <el-table-column prop="admin" label="Admin" sortable="custom"></el-table-column>
         </data-tables>
-        <!--    New User dialog form    -->
-        <div class="dialog-form">
-          <el-dialog title="Add a new user" :visible.sync="dialogFormVisible">
+        <!--    New User dialog form add    -->
+        <div class="dialog-form-add">
+          <el-dialog title="Add a new user" :visible.sync="dialogAddFormVisible">
             <el-form :model="form">
               <el-form-item label="Username" :label-width="formLabelWidth">
                 <el-input v-model="form.username" auto-complete="off"></el-input>
@@ -28,7 +28,7 @@
               </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogFormVisible = false">Cancel</el-button>
+              <el-button @click="dialogAddFormVisible = false">Cancel</el-button>
               <el-button type="primary" @click="newSubmit()">Confirm</el-button>
             </span>
           </el-dialog>
@@ -58,16 +58,16 @@ export default {
       title: 'Registered users',
       users: [],
       errorMsg: 'there was a problem while loading the page, please refresh',
-      api: 'http://localhost:3000/api/users',
+      apiPost: 'http://localhost:3000/api/users',
       actionsDef: {
         def: [{
           name: 'new',
           handler: () => {
-            this.dialogFormVisible = true
+            this.dialogAddFormVisible = true
           }
         }]
       },
-      dialogFormVisible: false,
+      dialogAddFormVisible: false,
       form: {
         username: '',
         password: '',
@@ -90,19 +90,36 @@ export default {
       actionColDef: {
         label: 'Actions',
         def: [{
-          icon: 'edit',
-          type: 'text',
-          handler: row => {
-            this.$message('Edit clicked')
-            this.dialogFormVisible = true
-          },
-          name: 'Edit'
-        }, {
           icon: 'delete',
           type: 'text',
           handler: row => {
-            this.$message('Delete clicked')
-            this.dialogFormVisible = true
+            this.$confirm('This will permanently delete the user. Continue?', 'Warning', {
+              confirmButtonText: 'OK',
+              cancelButtonText: 'Cancel',
+              type: 'warning'
+            }).then(() => {
+              Vue.axios.delete(`http://localhost:3000/api/users/${row.username}`, {
+              })
+              .then(response => {
+                this.users = response.data
+                this.users = this.users.users
+                for (var i = 0; i < this.users.length; i++) {
+                  this.users[i].admin = this.users[i].admin.toString()
+                }
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
+              this.$message({
+                type: 'success',
+                message: 'Delete completed'
+              })
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: 'Delete canceled'
+              })
+            })
           },
           name: 'Delete'
         }]
@@ -112,9 +129,9 @@ export default {
   methods: {
     newSubmit () {
       if (this.form.password === this.form.confirmPassword) {
-        this.dialogFormVisible = false
+        this.dialogAddFormVisible = false
         this.form.admin = (this.form.admin === 'true')    // parse string to boolean
-        Vue.axios.post(this.api, {
+        Vue.axios.post(this.apiPost, {
           body: this.form
         })
         .then(response => {
@@ -155,7 +172,7 @@ export default {
     }
   },
   beforeMount () {
-    Vue.axios.get(this.api).then(response => {
+    Vue.axios.get(this.apiPost).then(response => {
       this.users = response.data
       this.users = this.users.users
       for (var i = 0; i < this.users.length; i++) {

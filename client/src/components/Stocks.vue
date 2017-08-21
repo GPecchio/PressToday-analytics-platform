@@ -80,17 +80,33 @@ export default {
       actionColDef: {
         label: 'Actions',
         def: [{
-          icon: 'edit',
-          type: 'text',
-          handler: row => {
-            this.$message('Edit clicked')
-          },
-          name: 'Edit'
-        }, {
           icon: 'delete',
           type: 'text',
           handler: row => {
-            this.$message('Delete clicked')
+            this.$confirm('This will permanently delete the stock. Continue?', 'Warning', {
+              confirmButtonText: 'OK',
+              cancelButtonText: 'Cancel',
+              type: 'warning'
+            }).then(() => {
+              Vue.axios.delete(`http://localhost:3000/api/stocks/${row.name}`, {
+              })
+              .then(response => {
+                this.stocks = response.data
+                this.stocks = this.stocks.stocks
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
+              this.$message({
+                type: 'success',
+                message: 'Delete completed'
+              })
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: 'Delete canceled'
+              })
+            })
           },
           name: 'Delete'
         }]
