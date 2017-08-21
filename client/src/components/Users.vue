@@ -1,5 +1,6 @@
 <template>
   <div class="users">
+    
     <div id="main-users" v-if="isLoggedIn && isAdmin">
       <h1>{{ title }}</h1>
       <div class="table" v-if="users">
@@ -8,27 +9,30 @@
           <el-table-column prop="password" label="Password" sortable="custom"></el-table-column>
           <el-table-column prop="admin" label="Admin" sortable="custom"></el-table-column>
         </data-tables>
-        <el-dialog title="Add a new user" :visible.sync="dialogFormVisible">
-          <el-form :model="form">
-            <el-form-item label="Username" :label-width="formLabelWidth">
-              <el-input v-model="form.username" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="Password" :label-width="formLabelWidth">
-              <el-input v-model="form.password" auto-complete="off" type="password"></el-input>
-            </el-form-item>
-            <el-form-item label="Confirm password" :label-width="formLabelWidth">
-              <el-input v-model="form.confirmPassword" auto-complete="off" type="password"></el-input>
-            </el-form-item>
-            <el-form-item label="Admin" :label-width="formLabelWidth">
-              <el-radio class="radio" v-model="form.admin" :value="true" label="true">True</el-radio>
-              <el-radio class="radio" v-model="form.admin" :value="false" label="false">False</el-radio>
-            </el-form-item>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="confirmSubmit()">Confirm</el-button>
-          </span>
-        </el-dialog>
+        <!--    New User dialog form    -->
+        <div class="dialog-form">
+          <el-dialog title="Add a new user" :visible.sync="dialogFormVisible">
+            <el-form :model="form">
+              <el-form-item label="Username" :label-width="formLabelWidth">
+                <el-input v-model="form.username" auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="Password" :label-width="formLabelWidth">
+                <el-input v-model="form.password" auto-complete="off" type="password"></el-input>
+              </el-form-item>
+              <el-form-item label="Confirm password" :label-width="formLabelWidth">
+                <el-input v-model="form.confirmPassword" auto-complete="off" type="password"></el-input>
+              </el-form-item>
+              <el-form-item label="Admin" :label-width="formLabelWidth">
+                <el-radio class="radio" v-model="form.admin" :value="true" label="true">True</el-radio>
+                <el-radio class="radio" v-model="form.admin" :value="false" label="false">False</el-radio>
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">Cancel</el-button>
+              <el-button type="primary" @click="newSubmit()">Confirm</el-button>
+            </span>
+          </el-dialog>
+        </div>
       </div>
       <div v-else>
         <p>{{ errorMsg }}</p>
@@ -90,6 +94,7 @@ export default {
           type: 'text',
           handler: row => {
             this.$message('Edit clicked')
+            this.dialogFormVisible = true
           },
           name: 'Edit'
         }, {
@@ -97,6 +102,7 @@ export default {
           type: 'text',
           handler: row => {
             this.$message('Delete clicked')
+            this.dialogFormVisible = true
           },
           name: 'Delete'
         }]
@@ -104,7 +110,7 @@ export default {
     }
   },
   methods: {
-    confirmSubmit () {
+    newSubmit () {
       if (this.form.password === this.form.confirmPassword) {
         this.dialogFormVisible = false
         this.form.admin = (this.form.admin === 'true')    // parse string to boolean

@@ -26,11 +26,11 @@
                 </td>
                 <td style="text-align: left; width: 30%; float: left;">
                   <label>Quantity:</label>
-                  <el-input-number v-model.number="row.quantity" :change="handleChange" :step="1" :min="0" :max="1000"></el-input-number>
+                  <el-input-number v-model.number="row.quantity" :change="handleChange" :step="1" :min="0" :max="10"></el-input-number>
                 </td>
                 <td style="text-align: left; width: 30%; float: left;">
                   <label>Price:</label><br>
-                  <el-input-number v-model.number="row.price" :change="handleChange" :step="0.1" :min="0" :max="1000"></el-input-number>
+                  <el-input-number v-model.number="row.price" :change="handleChange" :step="0.1" :min="0" :max="10"></el-input-number>
                 </td>
               </div>
             </tr>
@@ -39,13 +39,13 @@
         <div>
           <p style="text-align: left; margin-left: 20px; margin-right: 20px;"><b>Overview:</b></p>
           <ul class="overview-list" v-for="(row, index) in rows" v-bind:key="(row, index)">
-              <li>Product number {{ index + 1 }}: {{ row.name }}</li>
-              <li>Quantity: {{ row.quantity }}</li>
-              <li>Price: £{{ row.price }}</li>    
+              <li>Product number {{ index + 1 }}: <b>{{ row.name.substring(0,1).toUpperCase() + row.name.substring(1,row.name.length) }}</b></li>
+              <li>Quantity: <b>{{ row.quantity }}</b></li>
+              <li>Price: <b>£{{ row.price }}</b></li>    
           </ul>
         </div>
         <div style="position: relative; margin-top: 20px;">
-          <el-button type="primary" @click="submitForm('dynamicValidateForm')">Sell</el-button>
+          <el-button type="primary" @click="submitForm()">Sell</el-button>
         </div>
       </el-card>
     </div>
@@ -70,15 +70,21 @@ export default {
     handleChange (value) {
       console.log(value)
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+    submitForm () {
+      // PRINTS OUT THE ARRAY OF THE OBJECTS WRITTEN DOWN IN SELL
+      console.log(this.rows)
+      // PRINTS OUT EACH ELEMENT IN THE OBJECTS ARRAY WRITTEN DOWN IN SELL
+      /* for (var i = 0; i < this.rows.length; i++) {
+        var element = this.rows[i]
+        console.log(element)
+      } */
+      // PRINTS OUT THE NAME, PRICE AND QUANTITY OF WRITTEN ELEMENT
+      /* for (var i = 0; i < this.rows.length; i++) {
+        var element = this.rows[i]
+        console.log(element.name)
+        console.log(element.price)
+        console.log(element.quantity)
+      } */
     },
     addRow () {
       this.productsNumber += 1
