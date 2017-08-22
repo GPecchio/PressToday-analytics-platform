@@ -71,37 +71,21 @@ export default {
   },
   methods: {
     submitForm () {
-      this.putApi = `http://localhost:3000/api/stocks/${this.rows[0].name.substring(0, 1).toUpperCase() + this.rows[0].name.substring(1, this.rows[0].name.length)}`
-      console.log(this.putApi)
-      console.log(this.rows[0].quantity)
-      Vue.axios.put(this.putApi, {
-        quantity: this.rows[0].quantity
-      })
-      .then(response => {
-        this.$message({
-          type: 'success',
-          message: 'Sell completed'
+      for (var i = 0; i < this.rows.length; i++) {
+        this.putApi = `http://localhost:3000/api/stocks/${this.rows[i].name.substring(0, 1).toUpperCase() + this.rows[i].name.substring(1, this.rows[i].name.length)}`
+        Vue.axios.put(this.putApi, {
+          quantity: this.rows[i].quantity
         })
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
-    /* submitForm () {
-      // PRINTS OUT THE ARRAY OF THE OBJECTS WRITTEN DOWN IN SELL
-      console.log(this.rows)
-      // PRINTS OUT EACH ELEMENT IN THE OBJECTS ARRAY WRITTEN DOWN IN SELL
-      /* for (var i = 0; i < this.rows.length; i++) {
-        var element = this.rows[i]
-        console.log(element)
-      } */
-      // PRINTS OUT THE NAME, PRICE AND QUANTITY OF WRITTEN ELEMENT
-      /* for (var i = 0; i < this.rows.length; i++) {
-        var element = this.rows[i]
-        console.log(element.name)
-        console.log(element.price)
-        console.log(element.quantity)
+        .then(response => {
+          this.$message({
+            type: 'success',
+            message: 'Sell completed'
+          })
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
       }
-    }, */
     },
     handleChange (value) {
       console.log(value)

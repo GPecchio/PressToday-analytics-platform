@@ -82,17 +82,13 @@ app.post('/api/stocks', (req, res) => {
 //rest api to sell a stock
 app.put('/api/stocks/:name', (req, res) => {
   for (var i = 0; i < stocksData.stocks.length; i++) {
-    console.log("param name: ", req.params.name)
-    console.log("stock: ", stocksData.stocks[i].name)
     if(stocksData.stocks[i].name === req.params.name){
-      console.log("body: ", req.body.quantity)
       req.body.quantity = parseInt(req.body.quantity)
       stocksData.stocks[i].quantity = stocksData.stocks[i].quantity - req.body.quantity
       jsonfile.writeFile(stocksFile, stocksData, {spaces: 2}, 'utf-8', function (err) {
         if (err) throw err
       })
-      res.send("works")  
-      console.log(stocksData)  
+      res.send('worked') 
       break
     }
   }

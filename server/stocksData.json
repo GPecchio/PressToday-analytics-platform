@@ -3,7 +3,7 @@
     {
       "name": "Pringles",
       "price": 2.3,
-      "quantity": 43
+      "quantity": 38
     },
     {
       "name": "Doritos",
@@ -13,7 +13,7 @@
     {
       "name": "Haribo",
       "price": 1,
-      "quantity": 10
+      "quantity": 6
     },
     {
       "name": "Drench",
@@ -27,3 +27,4 @@
     }
   ]
 }
+
