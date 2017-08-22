@@ -16,6 +16,7 @@
     "serve": "nodemon server.js"
   },
   "dependencies": {
+    "alasql": "^0.4.2",
     "axios": "^0.16.2",
     "bootstrap-vue": "^0.18.0",
     "connect-mongo": "^1.3.2",
@@ -23,6 +24,7 @@
     "element-ui": "^1.4.0",
     "express-session": "^1.15.4",
     "flash": "^1.1.0",
+    "json2csv": "^3.11.1",
     "node-uuid": "^1.4.8",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

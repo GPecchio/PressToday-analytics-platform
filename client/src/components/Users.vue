@@ -5,7 +5,7 @@
       <h1>{{ title }}</h1>
       <div class="table" v-if="users">
         <data-tables :data="users" :actions-def="actionsDef" :search-def="searchDef" :table-props="tableProps"
-                     :action-col-def="actionColDef" border style="width: 75%">
+                     :action-col-def="actionColDef" border style="width: 75%" @filtered-data="handleFilteredData">
           <el-table-column prop="username" label="Username" sortable="custom" ></el-table-column>
           <el-table-column prop="password" label="Password" sortable="custom"></el-table-column>
           <el-table-column prop="admin" label="Admin" sortable="custom"></el-table-column>
@@ -51,6 +51,27 @@
 
 <script>
 import Vue from 'vue'
+import json2csv from 'json2csv'
+
+let CsvExport = function (data, fields, fieldNames, fileName) {
+  try {
+    var result = json2csv({
+      data: data,
+      fields: fields,
+      fieldNames: fieldNames
+    })
+    var csvContent = 'data:text/csvcharset=GBK,\uFEFF' + result
+    var encodedUri = encodeURI(csvContent)
+    var link = document.createElement('a')
+    link.setAttribute('href', encodedUri)
+    link.setAttribute('download', `${(fileName || 'file')}.csv`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 export default {
   name: 'home',
@@ -58,16 +79,25 @@ export default {
     return {
       title: 'Registered users',
       users: [],
+      propsTable: ['Username', 'Password', 'Admin'],
       errorMsg: 'there was a problem while loading the page, please refresh',
       apiPost: 'http://localhost:3000/api/users',
       actionsDef: {
         def: [{
+          name: 'export all',
+          handler: () => {
+            CsvExport(this.users, this.propsTable, this.propsTable, 'all')
+          },
+          icon: 'plus'
+        },
+        {
           name: 'new',
           handler: () => {
             this.dialogAddFormVisible = true
           }
         }]
       },
+      filteredData: [],
       dialogAddFormVisible: false,
       form: {
         username: '',

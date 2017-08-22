@@ -5,7 +5,11 @@
       "password": "test",
       "admin": true
     },
-    {},
+    {
+      "username": "gpecchio",
+      "password": "test",
+      "admin": false
+    },
     {
       "username": "lbernini",
       "password": "test",
