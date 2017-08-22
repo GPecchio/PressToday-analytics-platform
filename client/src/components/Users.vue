@@ -57,7 +57,6 @@ let CsvExport = function (data, fields, fieldNames, fileName) {
   try {
     var result = json2csv({
       data: data,
-      fields: fields,
       fieldNames: fieldNames
     })
     var csvContent = 'data:text/csvcharset=GBK,\uFEFF' + result
@@ -79,16 +78,16 @@ export default {
     return {
       title: 'Registered users',
       users: [],
-      propsTable: ['Username', 'Password', 'Admin'],
+      propsTable: ['username', 'password', 'admin'],
       errorMsg: 'there was a problem while loading the page, please refresh',
       apiPost: 'http://localhost:3000/api/users',
       actionsDef: {
         def: [{
-          name: 'export all',
+          name: 'export',
           handler: () => {
-            CsvExport(this.users, this.propsTable, this.propsTable, 'all')
+            CsvExport(this.filteredData, this.propsTable, this.data, 'Tuck Shop Users')
           },
-          icon: 'plus'
+          icon: 'upload'
         },
         {
           name: 'new',
@@ -109,6 +108,10 @@ export default {
       searchDef: {
         inputProps: {
           placeholder: 'search'
+        },
+        colProps: {
+          offset: 14,
+          span: 5
         },
         props: 'username'
       },
@@ -158,6 +161,9 @@ export default {
     }
   },
   methods: {
+    handleFilteredData (filteredData) {
+      this.filteredData = filteredData
+    },
     newSubmit () {
       this.form = {
         username: '',
