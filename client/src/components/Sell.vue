@@ -57,23 +57,36 @@
 </template>
 
 <script type="text/javascript">
+import Vue from 'vue'
+
 export default {
   name: 'home',
   data () {
     return {
       title: 'Sell',
       rows: [],
+      putApi: '',
       productsNumber: 0
     }
   },
   methods: {
     submitForm () {
-      
-    },
-    handleChange (value) {
-      console.log(value)
-    },
-    submitForm () {
+      this.putApi = `http://localhost:3000/api/stocks/${this.rows[0].name.substring(0, 1).toUpperCase() + this.rows[0].name.substring(1, this.rows[0].name.length)}`
+      console.log(this.putApi)
+      console.log(this.rows[0].quantity)
+      Vue.axios.put(this.putApi, {
+        quantity: this.rows[0].quantity
+      })
+      .then(response => {
+        this.$message({
+          type: 'success',
+          message: 'Sell completed'
+        })
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    /* submitForm () {
       // PRINTS OUT THE ARRAY OF THE OBJECTS WRITTEN DOWN IN SELL
       console.log(this.rows)
       // PRINTS OUT EACH ELEMENT IN THE OBJECTS ARRAY WRITTEN DOWN IN SELL
@@ -87,7 +100,11 @@ export default {
         console.log(element.name)
         console.log(element.price)
         console.log(element.quantity)
-      } */
+      }
+    }, */
+    },
+    handleChange (value) {
+      console.log(value)
     },
     addRow () {
       this.productsNumber += 1
