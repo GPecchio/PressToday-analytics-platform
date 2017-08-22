@@ -34,6 +34,29 @@
             </span>
           </el-dialog>
         </div>
+        <div class="dialog-form-edit">
+          <el-dialog title="Edit a user" :visible.sync="dialogEditFormVisible">
+            <el-form :model="form">
+              <el-form-item label="Username" :label-width="formLabelWidth">
+                <el-input v-model="form.username" auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="Password" :label-width="formLabelWidth">
+                <el-input v-model="form.password" auto-complete="off" type="password"></el-input>
+              </el-form-item>
+              <el-form-item label="Confirm password" :label-width="formLabelWidth">
+                <el-input v-model="form.confirmPassword" auto-complete="off" type="password"></el-input>
+              </el-form-item>
+              <el-form-item label="Admin" :label-width="formLabelWidth">
+                <el-radio class="radio" v-model="form.admin" :value="true" label="true">True</el-radio>
+                <el-radio class="radio" v-model="form.admin" :value="false" label="false">False</el-radio>
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogEditFormVisible = false">Cancel</el-button>
+              <el-button type="primary" @click="editSubmit()">Confirm</el-button>
+            </span>
+          </el-dialog>
+        </div>
       </div>
       <div v-else>
         <p>{{ errorMsg }}</p>
@@ -82,6 +105,7 @@ export default {
       propsTable: ['username', 'password', 'admin'],
       errorMsg: 'there was a problem while loading the page, please refresh',
       apiPost: 'http://localhost:3000/api/users',
+      editUsername: '',
       actionsDef: {
         def: [{
           name: 'export',
@@ -93,6 +117,12 @@ export default {
         {
           name: 'new',
           handler: () => {
+            this.form = {
+              username: '',
+              password: '',
+              confirmPassword: '',
+              admin: false
+            }
             this.dialogAddFormVisible = true
           }
         }]
@@ -102,6 +132,7 @@ export default {
         currentPage: 1
       },
       dialogAddFormVisible: false,
+      dialogEditFormVisible: false,
       form: {
         username: '',
         password: '',
@@ -128,6 +159,21 @@ export default {
       actionColDef: {
         label: 'Actions',
         def: [{
+          icon: 'edit',
+          type: 'text',
+          handler: row => {
+            this.form = {
+              username: '',
+              password: '',
+              confirmPassword: '',
+              admin: false
+            }
+            this.dialogEditFormVisible = true
+            this.editUsername = row.username
+          },
+          name: 'Edit'
+        },
+        {
           icon: 'delete',
           type: 'text',
           handler: row => {
@@ -169,16 +215,37 @@ export default {
       this.filteredData = filteredData
     },
     newSubmit () {
-      this.form = {
-        username: '',
-        password: '',
-        confirmPassword: ''
-      }
       if (this.form.password === this.form.confirmPassword) {
         this.dialogAddFormVisible = false
         this.form.admin = (this.form.admin === 'true')    // parse string to boolean
         Vue.axios.post(this.apiPost, {
           body: this.form
+        })
+        .then(response => {
+          this.users = response.data
+          this.users = this.users.users
+          for (var i = 0; i < this.users.length; i++) {
+            this.users[i].admin = this.users[i].admin.toString()
+          }
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+      } else {
+        this.$notify.error({
+          title: 'Error',
+          message: 'Passwords do not match'
+        })
+      }
+    },
+    editSubmit () {
+      if (this.form.password === this.form.confirmPassword) {
+        this.dialogEditFormVisible = false
+        this.form.admin = (this.form.admin === 'true')    // parse string to boolean
+        Vue.axios.put(`http://localhost:3000/api/users/${this.editUsername}`, {
+          username: this.form.username,
+          password: this.form.password,
+          admin: this.form.admin
         })
         .then(response => {
           this.users = response.data
