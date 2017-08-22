@@ -15,7 +15,7 @@
               <el-input v-model="form.name" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="Price" :label-width="formLabelWidth">
-              <el-input-number v-model.number="form.price" :change="handleChange" :step="1" :min="0" :max="1000"></el-input-number>
+              <el-input-number v-model.number="form.price" :change="handleChange" :step="0.1" :min="0" :max="1000"></el-input-number>
             </el-form-item>
             <el-form-item label="Quantity" :label-width="formLabelWidth">
               <el-input-number v-model.number="form.quantity" :change="handleChange" :step="1" :min="0" :max="1000"></el-input-number>
@@ -23,7 +23,24 @@
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="confirmSubmit()">Confirm</el-button>
+            <el-button type="primary" @click="newSubmit()">Confirm</el-button>
+          </span>
+        </el-dialog>
+        <el-dialog title="Add a new stock" :visible.sync="dialogEditFormVisible">
+          <el-form :model="form">
+            <el-form-item label="Name" :label-width="formLabelWidth">
+              <el-input v-model="form.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="Price" :label-width="formLabelWidth">
+              <el-input-number v-model.number="form.price" :change="handleChange" :step="0.1" :min="0" :max="1000"></el-input-number>
+            </el-form-item>
+            <el-form-item label="Quantity" :label-width="formLabelWidth">
+              <el-input-number v-model.number="form.quantity" :change="handleChange" :step="1" :min="0" :max="1000"></el-input-number>
+            </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogEditFormVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="editSubmit()">Confirm</el-button>
           </span>
         </el-dialog>
       </div>
@@ -74,6 +91,7 @@ export default {
       propsTable: ['name', 'quantity', 'price'],
       errorMsg: 'there was a problem while loading the page, please refresh',
       api: 'http://localhost:3000/api/stocks',
+      editName: '',
       actionsDef: {
         def: [{
           name: 'export',
@@ -94,6 +112,7 @@ export default {
         currentPage: 1
       },
       dialogFormVisible: false,
+      dialogEditFormVisible: false,
       form: {
         name: '',
         price: 0,
@@ -118,6 +137,20 @@ export default {
       actionColDef: {
         label: 'Actions',
         def: [{
+          icon: 'edit',
+          type: 'text',
+          handler: row => {
+            this.form = {
+              name: '',
+              price: '',
+              quantity: ''
+            }
+            this.dialogEditFormVisible = true
+            this.editName = row.name
+          },
+          name: 'Edit'
+        },
+        {
           icon: 'delete',
           type: 'text',
           handler: row => {
@@ -155,10 +188,25 @@ export default {
     handleFilteredData (filteredData) {
       this.filteredData = filteredData
     },
-    confirmSubmit () {
+    newSubmit () {
       this.dialogFormVisible = false
       Vue.axios.post(this.api, {
         body: this.form
+      })
+      .then(response => {
+        this.stocks = response.data
+        this.stocks = this.stocks.stocks
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    },
+    editSubmit () {
+      this.dialogEditFormVisible = false
+      Vue.axios.put(`http://localhost:3000/api/stocks/edit/${this.editName}`, {
+        name: this.form.name,
+        price: this.form.price,
+        quantity: this.form.quantity
       })
       .then(response => {
         this.stocks = response.data

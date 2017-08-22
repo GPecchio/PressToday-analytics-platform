@@ -8,7 +8,7 @@
     {
       "name": "Doritos",
       "price": 1.2,
-      "quantity": 7
+      "quantity": 3
     },
     {
       "name": "Haribo",
@@ -18,7 +18,7 @@
     {
       "name": "Drench",
       "price": 2,
-      "quantity": 4
+      "quantity": 10
     },
     {
       "name": "Pepsi",
@@ -27,4 +27,3 @@
     }
   ]
 }
-

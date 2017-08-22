@@ -96,6 +96,23 @@ app.post('/api/stocks', (req, res) => {
   })
   res.send(stocksData)
 });
+//rest api to update a stock
+app.put('/api/stocks/edit/:name', (req, res) => {
+  for (var i = 0; i < stocksData.stocks.length; i++) {
+    if(stocksData.stocks[i].name === req.params.name){
+      stocksData.stocks[i] = {
+        name: req.body.name,
+        price: req.body.price,
+        quantity: req.body.quantity
+      }
+      jsonfile.writeFile(stocksFile, stocksData, {spaces: 2}, 'utf-8', function (err) {
+        if (err) throw err
+      })
+      res.send(stocksData)
+      break
+    }
+  }
+})
 //rest api to sell a stock
 app.put('/api/stocks/:name', (req, res) => {
   for (var i = 0; i < stocksData.stocks.length; i++) {
