@@ -47,6 +47,26 @@ app.post('/api/users', (req, res) => {
   })
   res.send(usersData);
 });
+//rest api to put (upadate) a user
+app.put('/api/users/:username', (req, res) => {
+  for (var i = 0; i < usersData.users.length; i++) {
+    if(usersData.users[i].username === req.params.username){
+      console.log(usersData.users[i])
+      console.log(req.body)
+      usersData.users[i] = {
+        username: req.body.username,
+        password: req.body.password,
+        admin: req.body.admin
+      }
+      console.log(usersData)
+      jsonfile.writeFile(usersFile, usersData, {spaces: 2}, 'utf-8', function (err) {
+        if (err) throw err
+      })
+      res.send(usersData)
+      break
+    }
+  }
+});
 //rest api to delete a user
 app.delete('/api/users/:username', (req, res) => {
   for (var i = 0; i < usersData.users.length; i++) {

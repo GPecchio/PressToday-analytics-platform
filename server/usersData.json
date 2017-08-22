@@ -5,8 +5,9 @@
       "password": "test",
       "admin": true
     },
+    {},
     {
-      "username": "gpecchio",
+      "username": "lbernini",
       "password": "test",
       "admin": false
     }
