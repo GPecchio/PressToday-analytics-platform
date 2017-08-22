@@ -41,7 +41,7 @@
           <ul class="overview-list" v-for="(row, index) in rows" v-bind:key="(row, index)">
               <li>Product number {{ index + 1 }}: <b>{{ row.name.substring(0,1).toUpperCase() + row.name.substring(1,row.name.length) }}</b></li>
               <li>Quantity: <b>{{ row.quantity }}</b></li>
-              <li>Price: <b>£{{ row.price }}</b></li>    
+              <li>Total Price: <b>£{{ (row.price * row.quantity).toFixed(2) }}</b></li>   
           </ul>
         </div>
         <div style="position: relative; margin-top: 20px;">

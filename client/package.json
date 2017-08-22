@@ -23,6 +23,7 @@
     "cors": "^2.8.4",
     "element-ui": "^1.4.0",
     "express-session": "^1.15.4",
+    "fast-deep-equal": "^1.0.0",
     "flash": "^1.1.0",
     "json2csv": "^3.11.1",
     "node-uuid": "^1.4.8",
