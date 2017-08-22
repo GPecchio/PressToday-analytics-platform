@@ -4,8 +4,8 @@
     <div id="main-users" v-if="isLoggedIn && isAdmin">
       <h1>{{ title }}</h1>
       <div class="table" v-if="users">
-        <data-tables :data="users" :actions-def="actionsDef" :search-def="searchDef" :table-props="tableProps"
-                     :action-col-def="actionColDef" border style="width: 75%" @filtered-data="handleFilteredData">
+        <data-tables :data="users" :actions-def="actionsDef" :search-def="searchDef" :pagination-def="paginationDef" 
+              :table-props="tableProps" :action-col-def="actionColDef" border style="width: 75%" @filtered-data="handleFilteredData">
           <el-table-column prop="username" label="Username" sortable="custom" ></el-table-column>
           <el-table-column prop="password" label="Password" sortable="custom"></el-table-column>
           <el-table-column prop="admin" label="Admin" sortable="custom"></el-table-column>
@@ -78,6 +78,7 @@ export default {
     return {
       title: 'Registered users',
       users: [],
+      filteredData: [],
       propsTable: ['username', 'password', 'admin'],
       errorMsg: 'there was a problem while loading the page, please refresh',
       apiPost: 'http://localhost:3000/api/users',
@@ -96,7 +97,10 @@ export default {
           }
         }]
       },
-      filteredData: [],
+      paginationDef: {
+        pageSizes: [5, 10, 15],
+        currentPage: 1
+      },
       dialogAddFormVisible: false,
       form: {
         username: '',

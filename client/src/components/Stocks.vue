@@ -3,7 +3,8 @@
     <div id="main-stocks" v-if="isLoggedIn && isAdmin">
       <h1>{{ title }}</h1>
       <div class="table" v-if="stocks">
-        <data-tables :data="stocks" :actions-def="actionsDef" :search-def="searchDef" :table-props="tableProps" :action-col-def="actionColDef" border style="width: 75%">
+        <data-tables :data="stocks" :actions-def="actionsDef" :search-def="searchDef" :pagination-def="paginationDef"
+              :table-props="tableProps" :action-col-def="actionColDef" border style="width: 75%" @filtered-data="handleFilteredData">
           <el-table-column prop="name" label="Name" sortable="custom"></el-table-column>
           <el-table-column prop="price" label="Price" sortable="custom"></el-table-column>
           <el-table-column prop="quantity" label="Quantity" sortable="custom"></el-table-column>
@@ -42,6 +43,26 @@
 
 <script>
 import Vue from 'vue'
+import json2csv from 'json2csv'
+
+let CsvExport = function (data, fields, fieldNames, fileName) {
+  try {
+    var result = json2csv({
+      data: data,
+      fieldNames: fieldNames
+    })
+    var csvContent = 'data:text/csvcharset=GBK,\uFEFF' + result
+    var encodedUri = encodeURI(csvContent)
+    var link = document.createElement('a')
+    link.setAttribute('href', encodedUri)
+    link.setAttribute('download', `${(fileName || 'file')}.csv`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 export default {
   name: 'home',
@@ -49,15 +70,28 @@ export default {
     return {
       title: 'Stocks available',
       stocks: [],
+      filteredData: [],
+      propsTable: ['name', 'quantity', 'price'],
       errorMsg: 'there was a problem while loading the page, please refresh',
       api: 'http://localhost:3000/api/stocks',
       actionsDef: {
         def: [{
+          name: 'export',
+          handler: () => {
+            CsvExport(this.filteredData, this.propsTable, this.data, 'Tuck Shop Stocks')
+          },
+          icon: 'upload'
+        },
+        {
           name: 'new',
           handler: () => {
             this.dialogFormVisible = true
           }
         }]
+      },
+      paginationDef: {
+        pageSizes: [10, 25, 50],
+        currentPage: 1
       },
       dialogFormVisible: false,
       form: {
@@ -68,6 +102,10 @@ export default {
       searchDef: {
         inputProps: {
           placeholder: 'search'
+        },
+        colProps: {
+          offset: 14,
+          span: 5
         },
         props: 'name'
       },
@@ -114,8 +152,8 @@ export default {
     }
   },
   methods: {
-    handleChange (value) {
-      console.log(value)
+    handleFilteredData (filteredData) {
+      this.filteredData = filteredData
     },
     confirmSubmit () {
       this.dialogFormVisible = false
