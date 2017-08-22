@@ -67,6 +67,9 @@ export default {
     }
   },
   methods: {
+    submitForm () {
+      
+    },
     handleChange (value) {
       console.log(value)
     },
