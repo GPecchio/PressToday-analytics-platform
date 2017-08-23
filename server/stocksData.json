@@ -3,7 +3,7 @@
     {
       "name": "Pringles",
       "price": 2.3,
-      "quantity": 40
+      "quantity": 35
     },
     {
       "name": "Haribo",
@@ -18,7 +18,7 @@
     {
       "name": "Pepsi",
       "price": 0.6,
-      "quantity": 14
+      "quantity": 13
     }
   ]
 }
