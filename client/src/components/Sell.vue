@@ -64,31 +64,40 @@ export default {
   data () {
     return {
       title: 'Sell',
+      stocks: [],
       rows: [],
+      api: 'http://localhost:3000/api/stocks',
       putApi: '',
       productsNumber: 0
     }
   },
   methods: {
     submitForm () {
-      for (var i = 0; i < this.rows.length; i++) {
-        this.putApi = `http://localhost:3000/api/stocks/${this.rows[i].name.substring(0, 1).toUpperCase() + this.rows[i].name.substring(1, this.rows[i].name.length)}`
-        Vue.axios.put(this.putApi, {
-          quantity: this.rows[i].quantity
-        })
-        .then(response => {
-          this.$message({
-            type: 'success',
-            message: 'Sell completed'
+      for (var i = 0; i < this.stocks.length; i++) {
+        this.rows[i].name = this.rows[i].name.substring(0, 1).toUpperCase() + this.rows[i].name.substring(1, this.rows[i].name.length)
+        if (this.stocks[i].name === this.rows[i].name) {
+          this.putApi = `http://localhost:3000/api/stocks/${this.rows[i].name}`
+          Vue.axios.put(this.putApi, {
+            quantity: this.rows[i].quantity
           })
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })
+          .then(response => {
+            this.$message({
+              type: 'success',
+              message: `${this.rows[i].name} was sold`
+            })
+          })
+          .catch(e => {
+            this.errors.push(e)
+          })
+        } else if (this.rows.length === 0) {
+          break
+        } else {
+          this.$message({
+            type: 'error',
+            message: `${this.rows[i].name} was sold`
+          })
+        }
       }
-    },
-    handleChange (value) {
-      console.log(value)
     },
     addRow () {
       this.productsNumber += 1
@@ -110,6 +119,10 @@ export default {
   },
   beforeMount () {
     this.addRow()
+    Vue.axios.get(this.api).then(response => {
+      this.stocks = response.data
+      this.stocks = this.stocks.stocks
+    })
   }
 }
 </script>

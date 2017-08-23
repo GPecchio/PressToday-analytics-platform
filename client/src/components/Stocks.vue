@@ -26,15 +26,15 @@
             <el-button type="primary" @click="newSubmit()">Confirm</el-button>
           </span>
         </el-dialog>
-        <el-dialog title="Add a new stock" :visible.sync="dialogEditFormVisible">
+        <el-dialog title="Edit a stock" :visible.sync="dialogEditFormVisible">
           <el-form :model="form">
             <el-form-item label="Name" :label-width="formLabelWidth">
               <el-input v-model="form.name" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="Price" :label-width="formLabelWidth">
-              <el-input-number v-model.number="form.price" :change="handleChange" :step="0.1" :min="0" :max="1000"></el-input-number>
+              <el-input-number v-model.number="form.price" :change="handleChange" :step="0.1" :min="0" :max="1000" style="margin-left: 8.5%"></el-input-number>
             </el-form-item>
-            <el-form-item label="Quantity" :label-width="formLabelWidth">
+            <el-form-item label="Total quantity" :label-width="formLabelWidth">
               <el-input-number v-model.number="form.quantity" :change="handleChange" :step="1" :min="0" :max="1000"></el-input-number>
             </el-form-item>
           </el-form>
