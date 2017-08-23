@@ -189,6 +189,7 @@ export default {
       this.filteredData = filteredData
     },
     newSubmit () {
+      this.form.name = this.form.name.substring(0, 1).toUpperCase() + this.form.name.substring(1, this.form.name.length)
       this.dialogFormVisible = false
       Vue.axios.post(this.api, {
         body: this.form
@@ -203,6 +204,7 @@ export default {
     },
     editSubmit () {
       this.dialogEditFormVisible = false
+      this.form.name = this.form.name.substring(0, 1).toUpperCase() + this.form.name.substring(1, this.form.name.length)
       Vue.axios.put(`http://localhost:3000/api/stocks/edit/${this.editName}`, {
         name: this.form.name,
         price: this.form.price,
