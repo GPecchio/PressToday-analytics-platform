@@ -26,7 +26,7 @@
                 </td>
                 <td style="text-align: left; width: 30%; float: left;">
                   <label>Quantity:</label>
-                  <el-input-number v-model.number="row.quantity" :change="handleChange" :step="1" :min="0" :max="10"></el-input-number>
+                  <el-input-number v-model.number="row.quantity" :change="handleChange" :step="1" :min="0" :max="100"></el-input-number>
                 </td>
                 <td style="text-align: left; width: 30%; float: left;">
                   <label>Price:</label><br>
@@ -77,28 +77,19 @@ export default {
       for (var j = 0; j < this.rows.length; j++) {
         this.rows[j].name = this.rows[j].name.substring(0, 1).toUpperCase() + this.rows[j].name.substring(1, this.rows[j].name.length)
         for (var i = 0; i < this.stocks.length; i++) {
-          if (this.stocks[i].name === this.rows[j].name) {
+          if (this.stocks[i].name === this.rows[j].name && this.stocks[i].quantity >= this.rows[i].quantity) {
             this.putApi = `http://localhost:3000/api/stocks/${this.rows[j].name}`
             Vue.axios.put(this.putApi, {
               quantity: this.rows[j].quantity
             })
-            .then(
-              this.$notify({
-                type: 'success',
-                title: 'Success',
-                message: `${this.rows[j].name} was sold`,
-                duration: 3000
-              })
-            )
+            .then(this.$notify({
+              type: 'success',
+              title: 'Success',
+              message: `Items were sold`,
+              duration: 3000
+            }))
             .catch(e => {
               this.errors.push(e)
-            })
-          } else if (this.stocks[i].name !== this.rows[j].name) {
-            this.$notify({
-              type: 'error',
-              title: 'Error',
-              message: `${this.rows[j].name} not found`,
-              duration: 3000
             })
           }
         }

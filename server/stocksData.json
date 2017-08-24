@@ -3,22 +3,27 @@
     {
       "name": "Pringles",
       "price": 2.3,
-      "quantity": 35
+      "quantity": 21
     },
     {
       "name": "Haribo",
       "price": 1,
-      "quantity": 6
-    },
-    {
-      "name": "Drench",
-      "price": 2,
-      "quantity": 10
+      "quantity": 2
     },
     {
       "name": "Pepsi",
       "price": 0.6,
       "quantity": 13
+    },
+    {
+      "name": "Noodles",
+      "price": 1,
+      "quantity": 22
+    },
+    {
+      "name": "Drench",
+      "price": 1.2,
+      "quantity": 20
     }
   ]
 }
