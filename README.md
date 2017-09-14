@@ -2,9 +2,12 @@
 
 > A Vue.js project
 
-## Build Setup
+## Build Setup Client-Side
 
 ``` bash
+# enter folder
+cd into the folder, then into the `client` folder
+
 # install dependencies
 npm install
 
@@ -27,4 +30,15 @@ npm run e2e
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Build Setup Server-Side
+
+``` bash
+# enter folder
+cd into the folder, then into the `server` folder
+
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:3000
+npm run dev
+```
