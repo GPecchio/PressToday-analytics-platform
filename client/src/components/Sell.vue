@@ -25,7 +25,7 @@
                   <el-input v-model="row.name"></el-input>
                 </td>
                 <td style="text-align: left; width: 30%; float: left;">
-                  <label>Quantity:</label>
+                  <label style="margin-right: 75px;">Quantity:</label>
                   <el-input-number v-model.number="row.quantity" :change="handleChange" :step="1" :min="0" :max="100"></el-input-number>
                 </td>
                 <td style="text-align: left; width: 30%; float: left;">
